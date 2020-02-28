@@ -12,19 +12,34 @@ namespace studyingProgect
 
             LineItem lineItem = new LineItem();
 
-             void addLineItem(string nomenclature, decimal quantiy, decimal price){
-                lineItem.Nomenclature.Description = nomenclature;
-                lineItem.Quantity = quantiy;
-                lineItem.Price = price;
-                lineItem.Amount = quantiy * price;
+            LineItem addLineItem(Nomenclature nomenclature, decimal quantiy, decimal price){
+                LineItem currentLine = new LineItem();
+                currentLine.Nomenclature = nomenclature;
+                currentLine.Quantity = quantiy;
+                currentLine.Price = price;
+                currentLine.Amount = quantiy * price;
 
+                return currentLine;
             }
             
 
 
 
-            addLineItem("Mouse", 3, 500);
+            //addLineItem("Mouse", 3, 500);
             Console.WriteLine(lineItem);
+
+            //void deleteLineItem(string nomenclature)
+            //{
+            //    string nomenc = nomenclature;
+            //    foreach (var name in lineItem)
+            //    {
+            //        if(nomenc == name.Nomenclature.Description)
+            //        {
+            //            lineItem.Remove(name);
+            //        }
+
+            //    }
+            //} 
 
             //Dictionary<string, int> componentsList = new Dictionary<string, int>();
             //Console.WriteLine("please write down components names and amount");
