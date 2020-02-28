@@ -6,16 +6,17 @@ namespace studyingProgect
 {
     public static class State
     {
-        public static List<Nomenclaure> Nomenclaure { get; set; }
+        public static List<Nomenclature> Nomenclaure { get; set; }
+
 
         static State()
         {
-            Nomenclaure = new List<Nomenclaure>();
+            Nomenclaure = new List<Nomenclature>();
         }
 
         public static void Initialize()
         {
-            Nomenclaure.Add(new Nomenclaure("AMD"));
+            Nomenclaure.Add(new Nomenclature("AMD"));
         }
     }
 }
