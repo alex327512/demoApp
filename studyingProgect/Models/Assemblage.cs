@@ -15,10 +15,10 @@ namespace studyingProgect
         public List<LineItem> ListOfNomenc { get; set; }
 
 
-        public Assemblage()
+        public Assemblage(DateTime? date = null)
         {
             Id = Guid.NewGuid();
-            Date = DateTime.Now;           
+            Date = date??DateTime.Now;           
             ListOfNomenc = new List<LineItem>();
         }
     }

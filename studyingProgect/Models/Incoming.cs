@@ -14,10 +14,10 @@ namespace studyingProgect
         public List<LineItem> ListOfNomenc { get; set; }
 
 
-        public Incoming(string description)
+        public Incoming(DateTime? date = null)
         {
             Id = Guid.NewGuid();
-            Date = DateTime.Now;
+            Date = date??DateTime.Now;
             ListOfNomenc = new List<LineItem>();
         }
     }
