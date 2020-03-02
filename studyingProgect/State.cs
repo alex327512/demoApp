@@ -18,6 +18,9 @@ namespace studyingProgect
 
         public static List<History> History { get; set; }
 
+        public static List<RemainNomenclature> RemainNomenclature { get; set; }
+        public static List<RemainNomenclatureBalance> RemainNomenclatureBalance { get; set; }
+
 
         static State()
         {
@@ -27,6 +30,8 @@ namespace studyingProgect
             Assemblage = new List<Assemblage>();
             Consumptions = new List<Consumption>();
             History = new List<History>();
+            RemainNomenclature = new List<RemainNomenclature>();
+            RemainNomenclatureBalance = new List<RemainNomenclatureBalance>();
         }
 
         public static void Initialize()

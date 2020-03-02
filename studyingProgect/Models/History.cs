@@ -8,18 +8,32 @@ namespace studyingProgect.Models
     {
 
 
-        public List<LineItem> ListOfNomenc { get; set; }
+     
 
-        public Warehouse Warehouse { get; set; }
+        public List<String> Warehouse { get; set; }
+        public List<DateTime> Date { get; set; }
 
-        public enum IncOrCons  {Inc = 1, Cons = 0}
+        public enum _IncOrCons { incoming = 1, consumption = 0 }
 
-        public decimal Quantity { get; set; }
+
+            public List<_IncOrCons> IncOrCons { get; set; }
+
+
+        //public decimal Quantity { get; set; }
+        // public Nomenclature Nomenclature { get; set; }
+        public List<Nomenclature> Nomenclature { get; set; }
+        public List<decimal> Quantity { get; set; }
+
 
         public History()
         {
+            Nomenclature = new List<Nomenclature>();
+            Warehouse = new List<String>();
+            IncOrCons = new List<_IncOrCons>();
+            Date = new List<DateTime>();
+            Quantity = new List<decimal>();
 
-            ListOfNomenc = new List<LineItem>();
+
         }
 
      
