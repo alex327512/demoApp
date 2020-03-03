@@ -10,10 +10,14 @@ namespace studyingProgect.Models
         public string Description { get; set; }
         
 
-        public Nomenclature(string description)
+        public Nomenclature(string description) : this()
+        {
+            Description = description;
+        }
+
+        public Nomenclature() 
         {
             Id = Guid.NewGuid();
-            Description = description;
         }
     }
 }

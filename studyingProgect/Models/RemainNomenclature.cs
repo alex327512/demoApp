@@ -8,6 +8,8 @@ namespace studyingProgect.Models
     {
         public DateTime Date { get; set; }
 
+        public Guid DocumentId { get; set; }
+
         public Nomenclature Nomenclature { get; set; }
 
         public Warehouse Warehouse { get; set; }
