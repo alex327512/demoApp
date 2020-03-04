@@ -1,9 +1,9 @@
-﻿using studyingProgect.Models;
+﻿using StudyingProgect.ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
 
 
-namespace studyingProgect
+namespace StudyingProgect.ApplicationCore
 {
     public class Assemblage
     {

@@ -1,7 +1,7 @@
-﻿using studyingProgect.Models;
+﻿using StudyingProgect.ApplicationCore.Models;
 
 
-namespace studyingProgect
+namespace StudyingProgect.ApplicationCore
 {
     public class LineItem
     {

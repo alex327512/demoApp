@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace studyingProgect.Models
+namespace StudyingProgect.ApplicationCore.Models
 {
     public class Nomenclature
     {

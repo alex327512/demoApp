@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using studyingProgect.Models;
+using StudyingProgect.ApplicationCore.Models;
 
-namespace studyingProgect
+namespace StudyingProgect.ApplicationCore
 {
     class Program
     {
@@ -28,7 +28,7 @@ namespace studyingProgect
                 //int currPrice = rnd.Next(50, 150);
                 int currPrice = 100;
                 //int currAmount = rnd.Next(5, 15);
-                int currAmount = 120;
+                int currAmount = 100;
                 AddLineItem(lineItem, item, currPrice, currAmount);
                 incoming.ListOfNomenc.Add(lineItem);
             }
@@ -42,11 +42,13 @@ namespace studyingProgect
 
             consumption.Warehouse = State.Warehouses.Find(w => w.Description == "Main");
 
-            LineItem lineItem = new LineItem();
+            
             Random rnd = new Random();
 
             foreach (var item in State.Nomenclaure)
             {
+
+                LineItem lineItem = new LineItem();
                 int currPrice = 100;
                 //int currPrice = rnd.Next(50, 150);
                 int currAmount = 100;
