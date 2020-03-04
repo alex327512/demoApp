@@ -18,12 +18,14 @@ namespace StudyingProgect.Infrastucture
 
         public void Update(Nomenclature item)
         {
-            throw new NotImplementedException();
+           var nomenclatureForUpdate = State.Nomenclaure.Find(n => n.Id == item.Id);
+           nomenclatureForUpdate = item;
         }
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var nomenclatureForRemove = State.Nomenclaure.Find(n => n.Id == id);
+            State.Nomenclaure.Remove(nomenclatureForRemove);
         }
     }
 }

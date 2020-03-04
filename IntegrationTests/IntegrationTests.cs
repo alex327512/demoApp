@@ -15,5 +15,15 @@ namespace StudyingProgect.IntegrationTests
             var item = repository.GetById(nomenclatore.Id);
             Assert.Equal(nomenclatore.Id, item.Id);
         }
+
+        [Fact]
+        public void test2()
+        {
+            var repository = new WarehouseRepository();
+            var warehouse = new Warehouse("Test");
+            repository.Create(warehouse);
+            var item = repository.GetById(warehouse.Id);
+            Assert.Equal(warehouse.Id, item.Id);
+        }
     }
 }
