@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <CodeAnalysisRuleset>$(MSBuildThisFileDirectory)CodeAnalysis.ruleset</CodeAnalysisRuleset>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(EnableAnalyzers)' == 'true'">
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="$(MicrosoftDotNetCodeAnalysisVersion)" PrivateAssets="all" IsImplicitlyDefined="true" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="$(MicrosoftCodeAnalysisFxCopAnalyzerVersion)" PrivateAssets="all" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="$(SonarAnalyzerCSharpVersion)" PrivateAssets="all" />
+    <PackageReference Include="StyleCop.Analyzers" Version="$(StyleCopAnalyzersVersion)" PrivateAssets="all" />
+  </ItemGroup>
+</Project>
