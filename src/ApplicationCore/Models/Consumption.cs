@@ -14,13 +14,13 @@ namespace StudyingProgect.ApplicationCore
         public Warehouse Warehouse { get; set; }
         public List<LineItem> ListOfNomenc { get; set; }
 
-        
+
         public Consumption(DateTime? date = null)
         {
             Id = Guid.NewGuid();
             Date = date??DateTime.Now;
             ListOfNomenc = new List<LineItem>();
-            
+
         }
 
         public void Write()

@@ -1,12 +1,10 @@
 ﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
 using System;
 
 namespace StudyingProgect.Infrastucture
 {
     public class IncomingRepository : IRepository<Incoming>
     {
-       
 
         public Incoming GetById(Guid id)
         {

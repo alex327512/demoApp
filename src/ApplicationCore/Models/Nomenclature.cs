@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace StudyingProgect.ApplicationCore.Models
 {
@@ -8,14 +7,13 @@ namespace StudyingProgect.ApplicationCore.Models
         public Guid Id { get; set; }
 
         public string Description { get; set; }
-        
 
         public Nomenclature(string description) : this()
         {
             Description = description;
         }
 
-        public Nomenclature() 
+        public Nomenclature()
         {
             Id = Guid.NewGuid();
         }

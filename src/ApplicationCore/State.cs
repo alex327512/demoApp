@@ -1,5 +1,4 @@
-﻿
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Models;
 using System.Collections.Generic;
 
 namespace StudyingProgect.ApplicationCore

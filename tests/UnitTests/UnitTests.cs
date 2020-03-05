@@ -2,7 +2,6 @@ using StudyingProgect.ApplicationCore;
 using StudyingProgect.ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace UnitTests
@@ -264,22 +263,6 @@ namespace UnitTests
             Test_ConsumptionWriteToState_WithData_ShouldWriteDataToState("one more desc", 70, 120);
             var RemainNomenclature = new RemainNomenclature();
             var result = new List<RemainNomenclature>();
-            //foreach (var firstItem in State.RemainNomenclature)
-            //{
-            //    foreach(var secondItem in State.RemainNomenclature)
-            //    {
-
-
-            //        if(firstItem.Nomenclature.Description == secondItem.Nomenclature.Description && firstItem.RecordType != secondItem.RecordType)
-            //        {
-            //            firstItem.Quantity = firstItem.Quantity - secondItem.Quantity;
-
-
-            //            listOfEl.Add(firstItem);
-
-            //        }
-            //    }
-            //}
 
             foreach (var item in State.RemainNomenclature)
             {

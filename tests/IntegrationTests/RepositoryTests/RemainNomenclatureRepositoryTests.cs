@@ -1,5 +1,4 @@
-﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Models;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
@@ -9,30 +8,51 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
     public class RemainNomenclatureRepositoryTests
     {
 
-
         [Fact]
-        public void TestRemainNomenclatureDbAccess_WittIdOrRemainNomenclature_ShouldEditRemainNomenclatureDb()
+        public void TestRemainNomenclatureDbAdd_WithNewRemainNomenclature_ShouldAddTheRemainNomenclatureToDb()
         {
             var repository = new RemainNomenclatureRepository();
             var remainNomenclature = new RemainNomenclature();
-
-
+            var remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            Assert.Null(remainNomenclatureById);
+            repository.Create(remainNomenclature);
+            remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            Assert.NotNull(remainNomenclatureById);
+        }
+        [Fact]
+        public void TestRemainNomenclatureDbFindById_WithRemainNomenclatureId_ShouldFindTheRemainNomenclatureInDbById()
+        {
+            var repository = new RemainNomenclatureRepository();
+            var remainNomenclature = new RemainNomenclature();
+            repository.Create(remainNomenclature);
+            var remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            Assert.Equal(remainNomenclature.DocumentId, remainNomenclatureById.DocumentId);
+        }
+        [Fact]
+        public void TestRemainNomenclatureDbUbdate_WithNewRemainNomenclature_ShouldUpdateTheRemainNomenclatureToDb()
+        {
+            var repository = new RemainNomenclatureRepository();
+            var remainNomenclature = new RemainNomenclature();
+            repository.Create(remainNomenclature);
+            var remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            Assert.Null(remainNomenclatureById.Warehouse.Description);
             var warehouse = new Warehouse("warehouse name");
             remainNomenclature.Warehouse = warehouse;
-
-
-            repository.Create(remainNomenclature);
-            var item = repository.GetById(remainNomenclature.DocumentId);
             repository.Update(remainNomenclature);
-            //Assert.Collection(repository, el => el.) ;
-
-            Assert.Equal(remainNomenclature.DocumentId, item.DocumentId);
-            Assert.Equal(warehouse, item.Warehouse);
-
-            repository.Delete(item.DocumentId);
-
-            //Assert.Equal(repository.GetById(item.DocumentId), item.DocumentId);
+            Assert.Equal("warehouse name", remainNomenclatureById.Warehouse.Description);
         }
-    }
+        [Fact]
+        public void TestRemainNomenclatureDbDelete_WithRemainNomenclature_ShouldDeleteTheRemainNomenclatureFromDb()
+        {
+            var repository = new RemainNomenclatureRepository();
+            var remainNomenclature = new RemainNomenclature();
+            repository.Create(remainNomenclature);
+            var remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            Assert.NotNull(remainNomenclatureById);
+            repository.Delete(remainNomenclature.DocumentId);
+            remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            Assert.Null(remainNomenclatureById);
+        }
 
+    }
 }

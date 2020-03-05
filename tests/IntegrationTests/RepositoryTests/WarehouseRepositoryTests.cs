@@ -1,5 +1,4 @@
-﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Models;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
@@ -10,16 +9,48 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 
 
         [Fact]
-        public void TestWarehouseDbAccess_WittIdOrWarehouse_ShouldEditWarehouseDb()
+        public void TestWarehouseDbAdd_WithNewWarehouse_ShouldAddTheWarehouseToDb()
+        {
+            var repository = new WarehouseRepository();
+            var warehouse = new Warehouse("first desc");
+            var warehouseFindById = repository.GetById(warehouse.Id);
+            Assert.Null(warehouseFindById);
+            repository.Create(warehouse);
+            warehouseFindById = repository.GetById(warehouse.Id);
+            Assert.NotNull(warehouseFindById);
+        }
+        [Fact]
+        public void TestWarehouseDbFindById_WithWarehouseId_ShouldFindTheWarehouseInDbById()
         {
             var repository = new WarehouseRepository();
             var warehouse = new Warehouse("first desc");
             repository.Create(warehouse);
-            var item = repository.GetById(warehouse.Id);
+            var warehouseFindById = repository.GetById(warehouse.Id);
+            Assert.Equal(warehouse.Id, warehouseFindById.Id);
+        }
+        [Fact]
+        public void TestWarehouseDbUbdate_WithNewWarehouse_ShouldUpdateTheWarehouseToDb()
+        {
+            var repository = new WarehouseRepository();
+            var warehouse = new Warehouse("first desc");
+            repository.Create(warehouse);
+            var warehouseFindById = repository.GetById(warehouse.Id);
+            Assert.Equal("fist desc", warehouseFindById.Description);
             warehouse.Description = "second desc";
             repository.Update(warehouse);
-            Assert.Equal(warehouse.Id, item.Id);
-            Assert.Equal("second desc", item.Description);
+            Assert.Equal("second desc", warehouseFindById.Description);
+        }
+        [Fact]
+        public void TestWarehouseDbDelete_WithWarehouse_ShouldDeleteTheWarehouseFromDb()
+        {
+            var repository = new WarehouseRepository();
+            var warehouse = new Warehouse("first desc");
+            repository.Create(warehouse);
+            var warehouseFindById = repository.GetById(warehouse.Id);
+            Assert.NotNull(warehouseFindById);
+            repository.Delete(warehouse.Id);
+            warehouseFindById = repository.GetById(warehouse.Id);
+            Assert.Null(warehouseFindById);
         }
     }
 }

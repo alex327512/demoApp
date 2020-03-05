@@ -1,5 +1,4 @@
 ﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
 using System;
 
 namespace StudyingProgect.Infrastucture

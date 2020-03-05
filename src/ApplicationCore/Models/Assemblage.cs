@@ -18,7 +18,7 @@ namespace StudyingProgect.ApplicationCore
         public Assemblage(DateTime? date = null)
         {
             Id = Guid.NewGuid();
-            Date = date??DateTime.Now;           
+            Date = date ?? DateTime.Now;
             ListOfNomenc = new List<LineItem>();
         }
     }

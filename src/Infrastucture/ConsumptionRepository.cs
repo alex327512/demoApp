@@ -1,5 +1,4 @@
 ﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
 using System;
 
 namespace StudyingProgect.Infrastucture
@@ -24,7 +23,7 @@ namespace StudyingProgect.Infrastucture
             consumptionForUpdate.Date = item.Date;
             consumptionForUpdate.Warehouse = item.Warehouse;
             consumptionForUpdate.ListOfNomenc = item.ListOfNomenc;
-            
+
         }
 
         public void Delete(Guid id)

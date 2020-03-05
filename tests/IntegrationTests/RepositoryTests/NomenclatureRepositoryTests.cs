@@ -1,5 +1,4 @@
-﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Models;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
@@ -14,13 +13,13 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 
             var repository = new NomenclatureRepository();
             var nomenclature = new Nomenclature("fist desc");
-            repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);
-            nomenclature.Description = "second desc";
-            repository.Update(nomenclature);
-            Assert.Equal(nomenclature.Id, nomencFindById.Id);
-            Assert.Equal("second desc", nomencFindById.Description);
-            repository.Delete(nomenclature.Id);
+
+            Assert.Null(nomencFindById);
+
+            repository.Create(nomenclature);
+            nomencFindById = repository.GetById(nomenclature.Id);
+            Assert.NotNull(nomencFindById);
 
         }
         [Fact]
@@ -31,11 +30,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var nomenclature = new Nomenclature("fist desc");
             repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);
-            nomenclature.Description = "second desc";
-            repository.Update(nomenclature);
             Assert.Equal(nomenclature.Id, nomencFindById.Id);
-            Assert.Equal("second desc", nomencFindById.Description);
-            repository.Delete(nomenclature.Id);
 
         }
         [Fact]
@@ -46,11 +41,10 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var nomenclature = new Nomenclature("fist desc");
             repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);
+            Assert.Equal("fist desc", nomencFindById.Description);
             nomenclature.Description = "second desc";
             repository.Update(nomenclature);
-            Assert.Equal(nomenclature.Id, nomencFindById.Id);
             Assert.Equal("second desc", nomencFindById.Description);
-            repository.Delete(nomenclature.Id);
 
         }
         [Fact]
@@ -61,11 +55,11 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var nomenclature = new Nomenclature("fist desc");
             repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);
-            nomenclature.Description = "second desc";
-            repository.Update(nomenclature);
-            Assert.Equal(nomenclature.Id, nomencFindById.Id);
-            Assert.Equal("second desc", nomencFindById.Description);
+            Assert.NotNull(nomencFindById);
             repository.Delete(nomenclature.Id);
+            nomencFindById = repository.GetById(nomenclature.Id);
+            Assert.Null(nomencFindById);
+
 
         }
     }
