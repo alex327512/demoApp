@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="UnitTests.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="UnitTests.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\ApplicationCore\StudyingProgect.ApplicationCore.csproj" />
   </ItemGroup>
 

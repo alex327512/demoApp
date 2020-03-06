@@ -5,8 +5,6 @@ namespace StudyingProgect.Infrastucture
 {
     public class AssemblageRepository : IRepository<Assemblage>
     {
-
-
         public Assemblage GetById(Guid id)
         {
             return State.Assemblage.Find(n => n.Id == id);
@@ -31,5 +29,4 @@ namespace StudyingProgect.Infrastucture
             State.Assemblage.Remove(assemblageForRemove);
         }
     }
-
 }

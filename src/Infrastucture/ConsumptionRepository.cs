@@ -5,8 +5,6 @@ namespace StudyingProgect.Infrastucture
 {
     public class ConsumptionRepository : IRepository<Consumption>
     {
-
-
         public Consumption GetById(Guid id)
         {
             return State.Consumptions.Find(n => n.Id == id);
@@ -23,7 +21,6 @@ namespace StudyingProgect.Infrastucture
             consumptionForUpdate.Date = item.Date;
             consumptionForUpdate.Warehouse = item.Warehouse;
             consumptionForUpdate.ListOfNomenc = item.ListOfNomenc;
-
         }
 
         public void Delete(Guid id)
@@ -32,5 +29,4 @@ namespace StudyingProgect.Infrastucture
             State.Consumptions.Remove(consumptionForRemove);
         }
     }
-
 }

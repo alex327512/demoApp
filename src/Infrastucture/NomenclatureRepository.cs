@@ -19,7 +19,7 @@ namespace StudyingProgect.Infrastucture
         public void Update(Nomenclature item)
         {
            var nomenclatureForUpdate = State.Nomenclaure.Find(n => n.Id == item.Id);
-            nomenclatureForUpdate.Description = item.Description;
+           nomenclatureForUpdate.Description = item.Description;
         }
 
         public void Delete(Guid id)

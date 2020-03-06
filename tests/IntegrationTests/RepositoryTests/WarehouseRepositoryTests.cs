@@ -6,8 +6,6 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 {
     public class WarehouseRepositoryTests
     {
-
-
         [Fact]
         public void TestWarehouseDbAdd_WithNewWarehouse_ShouldAddTheWarehouseToDb()
         {
@@ -19,6 +17,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             warehouseFindById = repository.GetById(warehouse.Id);
             Assert.NotNull(warehouseFindById);
         }
+
         [Fact]
         public void TestWarehouseDbFindById_WithWarehouseId_ShouldFindTheWarehouseInDbById()
         {
@@ -28,6 +27,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var warehouseFindById = repository.GetById(warehouse.Id);
             Assert.Equal(warehouse.Id, warehouseFindById.Id);
         }
+
         [Fact]
         public void TestWarehouseDbUbdate_WithNewWarehouse_ShouldUpdateTheWarehouseToDb()
         {
@@ -35,11 +35,12 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var warehouse = new Warehouse("first desc");
             repository.Create(warehouse);
             var warehouseFindById = repository.GetById(warehouse.Id);
-            Assert.Equal("fist desc", warehouseFindById.Description);
+            Assert.Equal("first desc", warehouseFindById.Description);
             warehouse.Description = "second desc";
             repository.Update(warehouse);
             Assert.Equal("second desc", warehouseFindById.Description);
         }
+
         [Fact]
         public void TestWarehouseDbDelete_WithWarehouse_ShouldDeleteTheWarehouseFromDb()
         {

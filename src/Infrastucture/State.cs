@@ -1,9 +1,10 @@
 ﻿using StudyingProgect.ApplicationCore.Models;
+using StudyingProgect.Infrastucture;
 using System.Collections.Generic;
 
 namespace StudyingProgect.ApplicationCore
 {
-    public static class State
+    public class State : IDb
     {
         public static List<Nomenclature> Nomenclaure { get; set; }
 
@@ -16,10 +17,10 @@ namespace StudyingProgect.ApplicationCore
         public static List<Consumption> Consumptions { get; set; }
 
         public static List<RemainNomenclature> RemainNomenclature { get; set; }
+
         public static List<RemainNomenclatureBalance> RemainNomenclatureBalance { get; set; }
 
-
-        static State()
+        public State()
         {
             Nomenclaure = new List<Nomenclature>();
             Warehouses = new List<Warehouse>();
@@ -30,7 +31,7 @@ namespace StudyingProgect.ApplicationCore
             RemainNomenclatureBalance = new List<RemainNomenclatureBalance>();
         }
 
-        public static void Initialize()
+        public void Initialize()
         {
             Nomenclaure.Add(new Nomenclature("AMD"));
             Nomenclaure.Add(new Nomenclature("INTEL"));
@@ -41,9 +42,13 @@ namespace StudyingProgect.ApplicationCore
             Nomenclaure.Add(new Nomenclature("SEAGATE"));
             Nomenclaure.Add(new Nomenclature("SAMSUNG"));
             Nomenclaure.Add(new Nomenclature("PHILIPS"));
-
             Warehouses.Add(new Warehouse("Main"));
             Warehouses.Add(new Warehouse("Additional"));
+        }
+
+        public List<T> GetTable<T>()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

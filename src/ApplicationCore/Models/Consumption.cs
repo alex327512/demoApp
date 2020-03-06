@@ -1,26 +1,19 @@
-﻿using System;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Models;
 using System.Collections.Generic;
+using StudyingProgect.ApplicationCore.Entity;
+using System;
 
 namespace StudyingProgect.ApplicationCore
 {
-    public class Consumption
+    public class Consumption : Document
     {
-
-        public Guid Id { get; set; }
-
-        public DateTime Date { get; set; }
-
         public Warehouse Warehouse { get; set; }
+
         public List<LineItem> ListOfNomenc { get; set; }
 
-
-        public Consumption(DateTime? date = null)
+        public Consumption(DateTime? date = null) : base(date)
         {
-            Id = Guid.NewGuid();
-            Date = date??DateTime.Now;
             ListOfNomenc = new List<LineItem>();
-
         }
 
         public void Write()

@@ -5,7 +5,6 @@ namespace StudyingProgect.Infrastucture
 {
     public class IncomingRepository : IRepository<Incoming>
     {
-
         public Incoming GetById(Guid id)
         {
             return State.Incomings.Find(n => n.Id == id);

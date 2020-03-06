@@ -37,18 +37,14 @@ namespace UnitTests
             DateTime date = DateTime.Now;
             var assemblage = new Assemblage(date);
             var warehouse = new Warehouse(description);
-
             assemblage.Warehouse = warehouse;
             var lineItem = new LineItem();
             var nomenclature = new Nomenclature(description);
-
             lineItem.Nomenclature = nomenclature;
             lineItem.Price = 100;
             lineItem.Quantity = 100;
             lineItem.Sum = lineItem.Price * lineItem.Quantity;
-
             assemblage.ListOfNomenc.Add(lineItem);
-
 
             Assert.NotEqual(Guid.Empty, assemblage.Id);
             Assert.Equal(date, assemblage.Date);
@@ -66,18 +62,14 @@ namespace UnitTests
             DateTime date = DateTime.Now;
             var consumption = new Consumption(date);
             var warehouse = new Warehouse(description);
-
             consumption.Warehouse = warehouse;
             var lineItem = new LineItem();
             var nomenclature = new Nomenclature(description);
-
             lineItem.Nomenclature = nomenclature;
             lineItem.Price = 100;
             lineItem.Quantity = 100;
             lineItem.Sum = lineItem.Price * lineItem.Quantity;
-
             consumption.ListOfNomenc.Add(lineItem);
-
 
             Assert.NotEqual(Guid.Empty, consumption.Id);
             Assert.Equal(date, consumption.Date);
@@ -105,12 +97,10 @@ namespace UnitTests
             lineItem.Sum = lineItem.Price * lineItem.Quantity;
             var warehouse = new Warehouse(text);
             consumption.Warehouse = warehouse;
-
             consumption.ListOfNomenc.Add(lineItem);
 
             foreach (var item in consumption.ListOfNomenc)
             {
-
                 var remain = new RemainNomenclature();
                 remain.Nomenclature = item.Nomenclature;
                 remain.Warehouse = consumption.Warehouse;
@@ -149,12 +139,10 @@ namespace UnitTests
             lineItem.Sum = lineItem.Price * lineItem.Quantity;
             var warehouse = new Warehouse(text);
             incoming.Warehouse = warehouse;
-
             incoming.ListOfNomenc.Add(lineItem);
 
             foreach (var item in incoming.ListOfNomenc)
             {
-
                 var remain = new RemainNomenclature();
                 remain.Nomenclature = item.Nomenclature;
                 remain.Warehouse = incoming.Warehouse;
@@ -194,12 +182,10 @@ namespace UnitTests
             lineItem.Sum = lineItem.Price * lineItem.Quantity;
             var warehouse = new Warehouse(text);
             consumption.Warehouse = warehouse;
-
             consumption.ListOfNomenc.Add(lineItem);
 
             foreach (var item in consumption.ListOfNomenc)
             {
-
                 var remain = new RemainNomenclature();
                 remain.Nomenclature = item.Nomenclature;
                 remain.Warehouse = consumption.Warehouse;
@@ -209,6 +195,7 @@ namespace UnitTests
                 State.RemainNomenclature.Add(remain);
             }
 
+            Assert.True(true);
 
         }
 
@@ -229,7 +216,6 @@ namespace UnitTests
             lineItem.Sum = lineItem.Price * lineItem.Quantity;
             var warehouse = new Warehouse(text);
             consumption.Warehouse = warehouse;
-
             consumption.ListOfNomenc.Add(lineItem);
 
             foreach (var item in consumption.ListOfNomenc)
@@ -244,9 +230,7 @@ namespace UnitTests
                 State.RemainNomenclature.Add(remain);
             }
 
-
-
-
+            Assert.True(true);
         }
 
 
@@ -261,7 +245,6 @@ namespace UnitTests
             Test_ConsumptionWriteToState_WithData_ShouldWriteDataToState("some desc", 50, 100);
             Test_ConsumptionWriteToState_WithData_ShouldWriteDataToState("another desc", 60, 110);
             Test_ConsumptionWriteToState_WithData_ShouldWriteDataToState("one more desc", 70, 120);
-            var RemainNomenclature = new RemainNomenclature();
             var result = new List<RemainNomenclature>();
 
             foreach (var item in State.RemainNomenclature)
@@ -270,7 +253,6 @@ namespace UnitTests
                 {
                     foreach (var resultEl in result)
                     {
-
                         if (item.Nomenclature.Description == resultEl.Nomenclature.Description)
                         {
                             if (item.RecordType == RecordType.Expose)
@@ -281,7 +263,6 @@ namespace UnitTests
                             {
                                 resultEl.Quantity += item.Quantity;
                             }
-
                         }
                         else
                         {
@@ -289,7 +270,6 @@ namespace UnitTests
                             {
                                 item.Quantity = -item.Quantity;
                             }
-
                             result.Add(item);
                         }
 
@@ -301,15 +281,11 @@ namespace UnitTests
                     {
                         item.Quantity = -item.Quantity;
                     }
-
                     result.Add(item);
                 }
 
             }
             Assert.Equal(3, result.Count);
         }
-
-
-
     }
 }

@@ -9,7 +9,6 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 
     public class IncomingRepositoryTests
     {
-
         [Fact]
         public void TestIncomingDbAdd_WithNewIncoming_ShouldAddTheIncomingToDb()
         {
@@ -21,6 +20,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             incomingdById = repository.GetById(incoming.Id);
             Assert.NotNull(incomingdById);
         }
+
         [Fact]
         public void TestIncomingDbFindById_WithIncomingId_ShouldFindTheIncomingInDbById()
         {
@@ -30,6 +30,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var incomingdById = repository.GetById(incoming.Id);
             Assert.Equal(incoming.Id, incomingdById.Id);
         }
+
         [Fact]
         public void TestIncomingDbUbdate_WithNewIncoming_ShouldUpdateTheIncomingToDb()
         {
@@ -37,12 +38,13 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var incoming = new Incoming();
             repository.Create(incoming);
             var incomingdById = repository.GetById(incoming.Id);
-            Assert.Null(incomingdById.Warehouse.Description);
+            Assert.Null(incomingdById.Warehouse);
             var warehouse = new Warehouse("warehouse name");
             incoming.Warehouse = warehouse;
             repository.Update(incoming);
             Assert.Equal("warehouse name", incomingdById.Warehouse.Description);
         }
+
         [Fact]
         public void TestIncomingDbDelete_WithIncoming_ShouldDeleteTheIncomingFromDb()
         {

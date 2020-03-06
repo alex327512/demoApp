@@ -1,16 +1,14 @@
-﻿using System;
+﻿using StudyingProgect.ApplicationCore.Entity;
 
 namespace StudyingProgect.ApplicationCore.Models
 {
-    public class Warehouse
+    public class Warehouse : Catalog
     {
-        public Guid Id { get; set; }
 
         public string Description { get; set; }
 
-        public Warehouse(string description)
+        public Warehouse(string description) : base()
         {
-            Id = Guid.NewGuid();
             Description = description;
         }
     }

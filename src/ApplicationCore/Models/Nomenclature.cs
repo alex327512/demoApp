@@ -1,11 +1,9 @@
-﻿using System;
+﻿using StudyingProgect.ApplicationCore.Entity;
 
 namespace StudyingProgect.ApplicationCore.Models
 {
-    public class Nomenclature
+    public class Nomenclature : Catalog
     {
-        public Guid Id { get; set; }
-
         public string Description { get; set; }
 
         public Nomenclature(string description) : this()
@@ -13,9 +11,8 @@ namespace StudyingProgect.ApplicationCore.Models
             Description = description;
         }
 
-        public Nomenclature()
+        public Nomenclature() : base()
         {
-            Id = Guid.NewGuid();
         }
     }
 }

@@ -7,7 +7,6 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 {
     public class ConsumptionRepositoryTests
     {
-
         [Fact]
         public void TestConsumptionDbAdd_WithNewConsumption_ShouldAddTheConsumptionToDb()
         {
@@ -19,6 +18,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             consumptionFindById = repository.GetById(consumption.Id);
             Assert.NotNull(consumptionFindById);
         }
+
         [Fact]
         public void TestConsumptionDbFindById_WithConsumptionId_ShouldFindTheConsumptionInDbById()
         {
@@ -28,6 +28,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var consumptionFindById = repository.GetById(consumption.Id);
             Assert.Equal(consumption.Id, consumptionFindById.Id);
         }
+
         [Fact]
         public void TestConsumptionDbUbdate_WithNewConsumption_ShouldUpdateTheConsumptionToDb()
         {
@@ -35,12 +36,13 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var consumption = new Consumption();
             repository.Create(consumption);
             var consumptionFindById = repository.GetById(consumption.Id);
-            Assert.Null(consumptionFindById.Warehouse.Description);
+            Assert.Null(consumptionFindById.Warehouse);
             var warehouse = new Warehouse("warehouse name");
             consumption.Warehouse = warehouse;
             repository.Update(consumption);
             Assert.Equal("warehouse name", consumptionFindById.Warehouse.Description);
         }
+
         [Fact]
         public void TestConsumptionDbDelete_WithConsumption_ShouldDeleteTheConsumptionFromDb()
         {
@@ -53,6 +55,5 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             consumptionFindById = repository.GetById(consumption.Id);
             Assert.Null(consumptionFindById);
         }
-
     }
 }
