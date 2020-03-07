@@ -86,6 +86,7 @@ namespace UnitTests
         [InlineData("one more desc", 70, 120)]
         public void Test_ConsumptionWriteTo_WithData_ShouldWriteDataToState(string description, decimal price, decimal quantity)
         {
+            State state = new State();
             string text = description;
             var lineItem = new LineItem();
             var nomenclature = new Nomenclature(text);
@@ -107,19 +108,19 @@ namespace UnitTests
                 remain.Date = consumption.Date;
                 remain.Quantity = item.Quantity;
                 remain.RecordType = RecordType.Expose;
-                State.RemainNomenclature.Add(remain);
+                state.GetTable<RemainNomenclature>().Add(remain);
             }
 
             Assert.NotEqual(Guid.Empty, consumption.Id);
             Assert.Equal(date, consumption.Date);
             Assert.Equal(description, consumption.Warehouse.Description);
-            Assert.Collection(State.RemainNomenclature, item => item.Warehouse.Description.Equals(text));
-            Assert.Collection(State.RemainNomenclature, item => item.Quantity.Equals(lineItem.Quantity));
-            Assert.Collection(State.RemainNomenclature, item => item.Date.Equals(date));
-            Assert.Collection(State.RemainNomenclature, item => item.RecordType.Equals(RecordType.Expose));
-            Assert.Collection(State.RemainNomenclature, item => item.Nomenclature.Equals(nomenclature));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.Warehouse.Description.Equals(text));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.Quantity.Equals(lineItem.Quantity));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.Date.Equals(date));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.RecordType.Equals(RecordType.Expose));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.Nomenclature.Equals(nomenclature));
 
-            State.RemainNomenclature.Clear();
+            state.GetTable<RemainNomenclature>().Clear();
         }
 
         [Theory]
@@ -128,6 +129,7 @@ namespace UnitTests
         [InlineData("one more desc", 70, 120)]
         public void Test_IncomingWriteTo_WithData_ShouldWriteDataToState(string description, decimal price, decimal quantity)
         {
+            State state = new State();
             string text = description;
             var lineItem = new LineItem();
             var nomenclature = new Nomenclature(text);
@@ -149,19 +151,19 @@ namespace UnitTests
                 remain.Date = incoming.Date;
                 remain.Quantity = item.Quantity;
                 remain.RecordType = RecordType.Receipt;
-                State.RemainNomenclature.Add(remain);
+                state.GetTable<RemainNomenclature>().Add(remain);
             }
 
             Assert.NotEqual(Guid.Empty, incoming.Id);
             Assert.Equal(date, incoming.Date);
             Assert.Equal(description, incoming.Warehouse.Description);
-            Assert.Collection(State.RemainNomenclature, item => item.Warehouse.Description.Equals(text));
-            Assert.Collection(State.RemainNomenclature, item => item.Quantity.Equals(lineItem.Quantity));
-            Assert.Collection(State.RemainNomenclature, item => item.Date.Equals(date));
-            Assert.Collection(State.RemainNomenclature, item => item.RecordType.Equals(RecordType.Receipt));
-            Assert.Collection(State.RemainNomenclature, item => item.Nomenclature.Equals(nomenclature));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.Warehouse.Description.Equals(text));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.Quantity.Equals(lineItem.Quantity));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.Date.Equals(date));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.RecordType.Equals(RecordType.Receipt));
+            Assert.Collection(state.GetTable<RemainNomenclature>(), item => item.Nomenclature.Equals(nomenclature));
 
-            State.RemainNomenclature.Clear();
+            state.GetTable<RemainNomenclature>().Clear();
         }
 
 
@@ -171,6 +173,7 @@ namespace UnitTests
         [InlineData("one more desc", 70, 120)]
         public void Test_IncomingWriteToState_WithData_ShouldWriteDataToState(string description, decimal price, decimal quantity)
         {
+            State state = new State();
             string text = description;
             var lineItem = new LineItem();
             var nomenclature = new Nomenclature(text);
@@ -192,7 +195,7 @@ namespace UnitTests
                 remain.Date = consumption.Date;
                 remain.Quantity = item.Quantity;
                 remain.RecordType = RecordType.Receipt;
-                State.RemainNomenclature.Add(remain);
+                state.GetTable<RemainNomenclature>().Add(remain);
             }
 
             Assert.True(true);
@@ -205,6 +208,7 @@ namespace UnitTests
         [InlineData("one more desc", 70, 120)]
         public void Test_ConsumptionWriteToState_WithData_ShouldWriteDataToState(string description, decimal price, decimal quantity)
         {
+            State state = new State();
             string text = description;
             var lineItem = new LineItem();
             var nomenclature = new Nomenclature(text);
@@ -227,7 +231,7 @@ namespace UnitTests
                 remain.Date = consumption.Date;
                 remain.Quantity = item.Quantity;
                 remain.RecordType = RecordType.Expose;
-                State.RemainNomenclature.Add(remain);
+                state.GetTable< RemainNomenclature>().Add(remain);
             }
 
             Assert.True(true);
@@ -247,7 +251,9 @@ namespace UnitTests
             Test_ConsumptionWriteToState_WithData_ShouldWriteDataToState("one more desc", 70, 120);
             var result = new List<RemainNomenclature>();
 
-            foreach (var item in State.RemainNomenclature)
+            State state = new State();
+
+            foreach (var item in state.GetTable<RemainNomenclature>())
             {
                 if (result.Count != 0)
                 {

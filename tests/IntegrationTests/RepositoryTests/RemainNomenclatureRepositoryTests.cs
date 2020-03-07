@@ -12,10 +12,10 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new RemainNomenclatureRepository();
             var remainNomenclature = new RemainNomenclature();
-            var remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
             Assert.Null(remainNomenclatureById);
             repository.Create(remainNomenclature);
-            remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            remainNomenclatureById = repository.GetById(remainNomenclature.Id);
             Assert.NotNull(remainNomenclatureById);
         }
 
@@ -25,8 +25,8 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var repository = new RemainNomenclatureRepository();
             var remainNomenclature = new RemainNomenclature();
             repository.Create(remainNomenclature);
-            var remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
-            Assert.Equal(remainNomenclature.DocumentId, remainNomenclatureById.DocumentId);
+            var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
+            Assert.Equal(remainNomenclature.Id, remainNomenclatureById.Id);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var repository = new RemainNomenclatureRepository();
             var remainNomenclature = new RemainNomenclature();
             repository.Create(remainNomenclature);
-            var remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
             Assert.Null(remainNomenclatureById.Warehouse);
             var warehouse = new Warehouse("warehouse name");
             remainNomenclature.Warehouse = warehouse;
@@ -49,10 +49,10 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var repository = new RemainNomenclatureRepository();
             var remainNomenclature = new RemainNomenclature();
             repository.Create(remainNomenclature);
-            var remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
             Assert.NotNull(remainNomenclatureById);
-            repository.Delete(remainNomenclature.DocumentId);
-            remainNomenclatureById = repository.GetById(remainNomenclature.DocumentId);
+            repository.Delete(remainNomenclature.Id);
+            remainNomenclatureById = repository.GetById(remainNomenclature.Id);
             Assert.Null(remainNomenclatureById);
         }
     }

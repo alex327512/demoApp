@@ -1,28 +1,29 @@
 ﻿using StudyingProgect.ApplicationCore.Models;
 using StudyingProgect.Infrastucture;
+using System;
 using System.Collections.Generic;
 
 namespace StudyingProgect.ApplicationCore
 {
     public class State : IDb
     {
-        public static List<Nomenclature> Nomenclaure { get; set; }
+        public  List<Nomenclature> Nomenclature { get; set; }
 
-        public static List<Warehouse> Warehouses { get; set; }
+        public  List<Warehouse> Warehouses { get; set; }
 
-        public static List<Incoming> Incomings { get; set; }
+        public  List<Incoming> Incomings { get; set; }
 
-        public static List<Assemblage> Assemblage { get; set; }
+        public  List<Assemblage> Assemblage { get; set; }
 
-        public static List<Consumption> Consumptions { get; set; }
+        public  List<Consumption> Consumptions { get; set; }
 
-        public static List<RemainNomenclature> RemainNomenclature { get; set; }
+        public  List<RemainNomenclature> RemainNomenclature { get; set; }
 
-        public static List<RemainNomenclatureBalance> RemainNomenclatureBalance { get; set; }
+        public  List<RemainNomenclatureBalance> RemainNomenclatureBalance { get; set; }
 
         public State()
         {
-            Nomenclaure = new List<Nomenclature>();
+            Nomenclature = new List<Nomenclature>();
             Warehouses = new List<Warehouse>();
             Incomings = new List<Incoming>();
             Assemblage = new List<Assemblage>();
@@ -33,22 +34,52 @@ namespace StudyingProgect.ApplicationCore
 
         public void Initialize()
         {
-            Nomenclaure.Add(new Nomenclature("AMD"));
-            Nomenclaure.Add(new Nomenclature("INTEL"));
-            Nomenclaure.Add(new Nomenclature("NVIDIA"));
-            Nomenclaure.Add(new Nomenclature("KINGSTON"));
-            Nomenclaure.Add(new Nomenclature("CORSAIR"));
-            Nomenclaure.Add(new Nomenclature("WD"));
-            Nomenclaure.Add(new Nomenclature("SEAGATE"));
-            Nomenclaure.Add(new Nomenclature("SAMSUNG"));
-            Nomenclaure.Add(new Nomenclature("PHILIPS"));
+            Nomenclature.Add(new Nomenclature("AMD"));
+            Nomenclature.Add(new Nomenclature("INTEL"));
+            Nomenclature.Add(new Nomenclature("NVIDIA"));
+            Nomenclature.Add(new Nomenclature("KINGSTON"));
+            Nomenclature.Add(new Nomenclature("CORSAIR"));
+            Nomenclature.Add(new Nomenclature("WD"));
+            Nomenclature.Add(new Nomenclature("SEAGATE"));
+            Nomenclature.Add(new Nomenclature("SAMSUNG"));
+            Nomenclature.Add(new Nomenclature("PHILIPS"));
             Warehouses.Add(new Warehouse("Main"));
             Warehouses.Add(new Warehouse("Additional"));
         }
 
         public List<T> GetTable<T>()
         {
-            throw new System.NotImplementedException();
+            Type type = typeof(T);
+
+            if (type == typeof(Nomenclature))
+            {
+                return (List<T>)(object)Nomenclature;
+            }
+            else if (type == typeof(Warehouse))
+            {
+                return (List<T>)(object)Warehouses;
+            }
+            else if (type == typeof(Incoming))
+            {
+                return (List<T>)(object)Incomings;
+            }
+            else if (type == typeof(Assemblage))
+            {
+                return (List<T>)(object)Assemblage;
+            }
+            else if (type == typeof(Consumption))
+            {
+                return (List<T>)(object)Consumptions;
+            }
+            else if (type == typeof(RemainNomenclature))
+            {
+                return (List<T>)(object)RemainNomenclature;
+            }
+            else if (type == typeof(RemainNomenclatureBalance))
+            {
+                return (List<T>)(object)RemainNomenclatureBalance;
+            }
+            return (List<T>)null;
         }
     }
 }

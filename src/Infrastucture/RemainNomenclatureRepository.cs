@@ -6,19 +6,20 @@ namespace StudyingProgect.Infrastucture
 {
     public class RemainNomenclatureRepository : IRepository<RemainNomenclature>
     {
+        private readonly IDb _state = new State();
         public RemainNomenclature GetById(Guid id)
         {
-            return State.RemainNomenclature.Find(n => n.DocumentId == id);
+            return _state.GetTable<RemainNomenclature>().Find(n => n.Id == id);
         }
 
         public void Create(RemainNomenclature item)
         {
-            State.RemainNomenclature.Add(item);
+            _state.GetTable<RemainNomenclature>().Add(item);
         }
 
         public void Update(RemainNomenclature item)
         {
-            var remainNomenclatureForUpdate = State.RemainNomenclature.Find(n => n.DocumentId == item.DocumentId);
+            var remainNomenclatureForUpdate = _state.GetTable<RemainNomenclature>().Find(n => n.Id == item.Id);
             remainNomenclatureForUpdate.Date = item.Date;
             remainNomenclatureForUpdate.Nomenclature = item.Nomenclature;
             remainNomenclatureForUpdate.Quantity = item.Quantity;
@@ -28,8 +29,8 @@ namespace StudyingProgect.Infrastucture
 
         public void Delete(Guid id)
         {
-            var remainNomenclatureForRemove = State.RemainNomenclature.Find(n => n.DocumentId == id);
-            State.RemainNomenclature.Remove(remainNomenclatureForRemove);
+            var remainNomenclatureForRemove = _state.GetTable<RemainNomenclature>().Find(n => n.Id == id);
+            _state.GetTable<RemainNomenclature>().Remove(remainNomenclatureForRemove);
         }
     }
 }

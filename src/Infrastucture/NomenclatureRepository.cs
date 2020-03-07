@@ -6,26 +6,27 @@ namespace StudyingProgect.Infrastucture
 {
     public class NomenclatureRepository : IRepository<Nomenclature>
     {
+        private readonly IDb _state = new State();
         public Nomenclature GetById(Guid id)
         {
-            return State.Nomenclaure.Find(n => n.Id == id);
+            return _state.GetTable<Nomenclature>().Find(n => n.Id == id);
         }
 
         public void Create(Nomenclature item)
         {
-            State.Nomenclaure.Add(item);
+            _state.GetTable<Nomenclature>().Add(item);
         }
 
         public void Update(Nomenclature item)
         {
-           var nomenclatureForUpdate = State.Nomenclaure.Find(n => n.Id == item.Id);
+           var nomenclatureForUpdate = _state.GetTable<Nomenclature>().Find(n => n.Id == item.Id);
            nomenclatureForUpdate.Description = item.Description;
         }
 
         public void Delete(Guid id)
         {
-            var nomenclatureForRemove = State.Nomenclaure.Find(n => n.Id == id);
-            State.Nomenclaure.Remove(nomenclatureForRemove);
+            var nomenclatureForRemove = _state.GetTable<Nomenclature>().Find(n => n.Id == id);
+            _state.GetTable<Nomenclature>().Remove(nomenclatureForRemove);
         }
     }
 }

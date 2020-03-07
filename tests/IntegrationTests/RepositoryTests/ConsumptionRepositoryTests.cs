@@ -7,10 +7,17 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 {
     public class ConsumptionRepositoryTests
     {
+        private readonly IDb _db;
+
+        public ConsumptionRepositoryTests()
+        {
+            _db = new State();
+        }
+
         [Fact]
         public void TestConsumptionDbAdd_WithNewConsumption_ShouldAddTheConsumptionToDb()
         {
-            var repository = new ConsumptionRepository();
+            var repository = new RepositoryBase<Consumption>(_db);
             var consumption = new Consumption();
             var consumptionFindById = repository.GetById(consumption.Id);
             Assert.Null(consumptionFindById);
@@ -22,7 +29,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestConsumptionDbFindById_WithConsumptionId_ShouldFindTheConsumptionInDbById()
         {
-            var repository = new ConsumptionRepository();
+            var repository = new RepositoryBase<Consumption>(_db);
             var consumption = new Consumption();
             repository.Create(consumption);
             var consumptionFindById = repository.GetById(consumption.Id);
@@ -32,7 +39,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestConsumptionDbUbdate_WithNewConsumption_ShouldUpdateTheConsumptionToDb()
         {
-            var repository = new ConsumptionRepository();
+            var repository = new RepositoryBase<Consumption>(_db);
             var consumption = new Consumption();
             repository.Create(consumption);
             var consumptionFindById = repository.GetById(consumption.Id);
@@ -46,7 +53,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestConsumptionDbDelete_WithConsumption_ShouldDeleteTheConsumptionFromDb()
         {
-            var repository = new ConsumptionRepository();
+            var repository = new RepositoryBase<Consumption>(_db);
             var consumption = new Consumption();
             repository.Create(consumption);
             var consumptionFindById = repository.GetById(consumption.Id);

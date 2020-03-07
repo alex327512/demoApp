@@ -1,12 +1,12 @@
-﻿using System;
+﻿using StudyingProgect.ApplicationCore.Entity;
 
 namespace StudyingProgect.ApplicationCore.Models
 {
-    public class RemainNomenclature
+    public class RemainNomenclature : Document
     {
-        public DateTime Date { get; set; }
+        ////public DateTime Date { get; set; }
 
-        public Guid DocumentId { get; set; }
+       ///// public Guid DocumentId { get; set; }
 
         public Nomenclature Nomenclature { get; set; }
 

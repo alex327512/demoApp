@@ -9,10 +9,17 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 
     public class IncomingRepositoryTests
     {
+        private readonly IDb _db;
+
+        public IncomingRepositoryTests()
+        {
+            _db = new State();
+        }
+
         [Fact]
         public void TestIncomingDbAdd_WithNewIncoming_ShouldAddTheIncomingToDb()
         {
-            var repository = new IncomingRepository();
+            var repository = new RepositoryBase<Incoming>(_db);
             var incoming = new Incoming();
             var incomingdById = repository.GetById(incoming.Id);
             Assert.Null(incomingdById);
@@ -24,7 +31,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestIncomingDbFindById_WithIncomingId_ShouldFindTheIncomingInDbById()
         {
-            var repository = new IncomingRepository();
+            var repository = new RepositoryBase<Incoming>(_db);
             var incoming = new Incoming();
             repository.Create(incoming);
             var incomingdById = repository.GetById(incoming.Id);
@@ -34,7 +41,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestIncomingDbUbdate_WithNewIncoming_ShouldUpdateTheIncomingToDb()
         {
-            var repository = new IncomingRepository();
+            var repository = new RepositoryBase<Incoming>(_db);
             var incoming = new Incoming();
             repository.Create(incoming);
             var incomingdById = repository.GetById(incoming.Id);
@@ -48,7 +55,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestIncomingDbDelete_WithIncoming_ShouldDeleteTheIncomingFromDb()
         {
-            var repository = new IncomingRepository();
+            var repository = new RepositoryBase<Incoming>(_db);
             var incoming = new Incoming();
             repository.Create(incoming);
             var incomingdById = repository.GetById(incoming.Id);

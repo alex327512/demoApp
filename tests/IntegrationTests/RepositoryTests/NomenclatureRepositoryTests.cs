@@ -1,4 +1,5 @@
-﻿using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore;
+using StudyingProgect.ApplicationCore.Models;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
@@ -7,10 +8,17 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 
     public class NomenclatureRepositoryTests
     {
+        private readonly IDb _db;
+
+        public NomenclatureRepositoryTests()
+        {
+            _db = new State();
+        }
+
         [Fact]
         public void TestNomenclatureDbAdd_WithNewNomenclature_ShouldAddTheNomenclatureToDb()
         {
-            var repository = new NomenclatureRepository();
+            var repository = new RepositoryBase<Nomenclature>(_db);
             var nomenclature = new Nomenclature("fist desc");
             var nomencFindById = repository.GetById(nomenclature.Id);
             Assert.Null(nomencFindById);
