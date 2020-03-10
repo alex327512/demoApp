@@ -25,13 +25,16 @@ namespace StudyingProgect.Infrastucture
 
         public void Update(T item)
         {
-            var nomenclatureForUpdate = _table.Find(n => n.Id == item.Id);
+            var itemForRemove = _table.Find(n => n.Id == item.Id);
+            var index = _table.IndexOf(itemForUpdate);
+            _table.RemoveAt(index);
+            _table.Insert(index, item);
         }
 
         public void Delete(Guid id)
         {
-            var nomenclatureForRemove = _table.Find(n => n.Id == id);
-            _table.Remove(nomenclatureForRemove);
+            var itemForRemove = _table.Find(n => n.Id == id);
+            _table.Remove(itemForRemove);
         }
     }
 }

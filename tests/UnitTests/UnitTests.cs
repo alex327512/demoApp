@@ -231,7 +231,7 @@ namespace UnitTests
                 remain.Date = consumption.Date;
                 remain.Quantity = item.Quantity;
                 remain.RecordType = RecordType.Expose;
-                state.GetTable< RemainNomenclature>().Add(remain);
+                state.GetTable<RemainNomenclature>().Add(remain);
             }
 
             Assert.True(true);
