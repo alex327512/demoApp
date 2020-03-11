@@ -29,30 +29,30 @@ namespace StudyingProgect.IntegrationTests
             _incomingService = new IncomingService(_incomingRepository, _remainNomenclatureRepository);
             _consumptionService = new ConsumptionService(_consumptionRepository, _remainNomenclatureRepository);
         }
-
-        [Fact]
-        public void Test_RemainNomenclature_WithEqualIncConsQuantity_ShouldReturnBalanceWithZeroQuantity()
+        private Warehouse SelectWarehouse(string warehouseName)
         {
-            var incoming = new Incoming();
-            var consumption = new Consumption();
             var warehouse = _db.GetTable<Warehouse>();
-            var selectedWarehouse = warehouse.Single(w => w.Description == "Main");
+            var selectedWarehouse = warehouse.Single(w => w.Description == warehouseName);
+            return selectedWarehouse;
+        }
+
+        private Nomenclature SelectNomenclature(string nomenclatureName)
+        {
             var nomenclature = _db.GetTable<Nomenclature>();
-            var selectedNomenclature = nomenclature.Single(n => n.Description == "AMD");
-            var lineItem = new LineItem
-            {
-                Nomenclature = selectedNomenclature,
-                Quantity = 100
-            };
+            var selectedNomenclature = nomenclature.Single(n => n.Description == nomenclatureName);
+            return selectedNomenclature;
+        }
 
-            incoming.Warehouse = selectedWarehouse;
-            consumption.Warehouse = selectedWarehouse;
-            incoming.ListOfNomenc.Add(lineItem);
-            consumption.ListOfNomenc.Add(lineItem);
+        private LineItem CreateLineItemWithData(Nomenclature nomenclature, decimal quantity)
+        {
+            var lineItem = new LineItem();
+            lineItem.Nomenclature = nomenclature;
+            lineItem.Quantity = quantity;
+            return lineItem;
+        }
 
-            _incomingService.Write(incoming);
-            _consumptionService.Write(consumption);
-
+        private List<RemainNomenclatureBalance> GetNomenclatureBalance()
+        {
             var table = _db.GetTable<RemainNomenclature>();
             foreach (var item in table.Where(p => p.RecordType == RecordType.Expose))
             {
@@ -66,7 +66,29 @@ namespace StudyingProgect.IntegrationTests
                 Quantity = g.Sum(s => s.Quantity)
             }).ToList();
 
-            Assert.Equal(0, test.Select(t => t.Quantity).First());
+            return test;
+        }
+
+        [Fact]
+        public void Test_RemainNomenclature_WithEqualIncConsQuantity_ShouldReturnBalanceWithZeroQuantity()
+        {
+            var incoming = new Incoming();
+            var consumption = new Consumption();
+
+            var selectedNomenclature = SelectNomenclature("AMD");
+
+            incoming.Warehouse = SelectWarehouse("Main");
+            incoming.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 100));
+
+            consumption.Warehouse = SelectWarehouse("Main");
+            consumption.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 100));
+
+            _incomingService.Write(incoming);
+            _consumptionService.Write(consumption);
+
+            var result = GetNomenclatureBalance();
+
+            Assert.Equal(0, result.Select(t => t.Quantity).First());
         }
 
         [Fact]
@@ -74,39 +96,21 @@ namespace StudyingProgect.IntegrationTests
         {
             var incoming = new Incoming();
             var consumption = new Consumption();
-            var warehouse = _db.GetTable<Warehouse>();
-            var selectedWarehouse = warehouse.Single(w => w.Description == "Main");
-            var nomenclature = _db.GetTable<Nomenclature>();
-            var selectedNomenclature = nomenclature.Single(n => n.Description == "AMD");
-            var lineItemInc = new LineItem();
-            var lineItemCon = new LineItem();
 
-            lineItemInc.Nomenclature = selectedNomenclature;
-            lineItemInc.Quantity = 100;
-            lineItemCon.Nomenclature = selectedNomenclature;
-            lineItemCon.Quantity = 200;
-            incoming.Warehouse = selectedWarehouse;
-            consumption.Warehouse = selectedWarehouse;
-            incoming.ListOfNomenc.Add(lineItemInc);
-            consumption.ListOfNomenc.Add(lineItemCon);
+            var selectedNomenclature = SelectNomenclature("AMD");
+
+            incoming.Warehouse = SelectWarehouse("Main");
+            incoming.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 100));
+
+            consumption.Warehouse = SelectWarehouse("Main");
+            consumption.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 50));
 
             _incomingService.Write(incoming);
             _consumptionService.Write(consumption);
 
-            var table = _db.GetTable<RemainNomenclature>();
-            foreach (var item in table.Where(p => p.RecordType == RecordType.Expose))
-            {
-                item.Quantity = -item.Quantity;
-            }
-            var test = table.GroupBy(t => new { t.Nomenclature, t.Warehouse }).Select(g => new RemainNomenclatureBalance
-            {
-                Date = DateTime.Now,
-                Warehouse = g.Key.Warehouse,
-                Nomenclature = g.Key.Nomenclature,
-                Quantity = g.Sum(s => s.Quantity)
-            }).ToList();
+            var result = GetNomenclatureBalance();
 
-            Assert.Equal((lineItemInc.Quantity - lineItemCon.Quantity), test.Select(t => t.Quantity).First());
+            Assert.Equal(50, result.Select(t => t.Quantity).First());
         }
 
         [Fact]
@@ -115,44 +119,20 @@ namespace StudyingProgect.IntegrationTests
             var incoming = new Incoming();
             var consumption = new Consumption();
 
-            var warehouse = _db.GetTable<Warehouse>();
-            var nomenclature = _db.GetTable<Nomenclature>();
+            var selectedNomenclature = SelectNomenclature("AMD");
 
-            var selectedWarehouse = warehouse.Single(w => w.Description == "Main");
-            var selectedNomenclature = nomenclature.Single(n => n.Description == "AMD");
+            incoming.Warehouse = SelectWarehouse("Main");
+            incoming.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 50));
 
-            var lineItemInc = new LineItem();
-            var lineItemCon = new LineItem();
-
-            lineItemInc.Nomenclature = selectedNomenclature;
-            lineItemInc.Quantity = 100;
-
-            lineItemCon.Nomenclature = selectedNomenclature;
-            lineItemCon.Quantity = 60;
-
-            consumption.Warehouse = selectedWarehouse;
-            consumption.ListOfNomenc.Add(lineItemCon);
-
-            incoming.Warehouse = selectedWarehouse;
-            incoming.ListOfNomenc.Add(lineItemInc);
+            consumption.Warehouse = SelectWarehouse("Main");
+            consumption.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 100));
 
             _incomingService.Write(incoming);
             _consumptionService.Write(consumption);
 
-            var table = _db.GetTable<RemainNomenclature>();
-            foreach (var item in table.Where(p => p.RecordType == RecordType.Expose))
-            {
-                item.Quantity = -item.Quantity;
-            }
-            var test = table.GroupBy(t => new { t.Nomenclature, t.Warehouse }).Select(g => new RemainNomenclatureBalance
-            {
-                Date = DateTime.Now,
-                Warehouse = g.Key.Warehouse,
-                Nomenclature = g.Key.Nomenclature,
-                Quantity = g.Sum(s => s.Quantity)
-            }).ToList();
+            var result = GetNomenclatureBalance();
 
-            Assert.Equal((lineItemInc.Quantity - lineItemCon.Quantity), test.Select(t => t.Quantity).First());
+            Assert.Equal(-50, result.Select(t => t.Quantity).First());
         }
 
         [Fact]
@@ -160,19 +140,14 @@ namespace StudyingProgect.IntegrationTests
         {
             var incoming = new Incoming();
             var consumption = new Consumption();
-            var warehouse = _db.GetTable<Warehouse>();
-            var selectedWarehouse = warehouse.Single(w => w.Description == "Main");
-            var nomenclature = _db.GetTable<Nomenclature>();
-            /////var selectedNomenclature = nomenclature.Single(n => n.Description == "NVIDIA");
             var rand = new Random();
+
             string[] nomenc = new string[6] { "NVIDIA", "AMD", "WD", "NVIDIA", "AMD", "WD" };
+
             for (int i = 0; i < 6; i++)
             {
-                var lineItem = new LineItem
-                {
-                    Nomenclature = nomenclature.Single(n => n.Description == nomenc[i]),
-                    Quantity = rand.Next(1, 100)
-                };
+                var lineItem = CreateLineItemWithData(SelectNomenclature(nomenc[i]), rand.Next(1, 100));
+
                 if (i % 2 == 0)
                 {
                     incoming.ListOfNomenc.Add(lineItem);
@@ -183,26 +158,16 @@ namespace StudyingProgect.IntegrationTests
                 }
             }
 
-            incoming.Warehouse = selectedWarehouse;
-            consumption.Warehouse = selectedWarehouse;
+            incoming.Warehouse = SelectWarehouse("Main");
+            consumption.Warehouse = SelectWarehouse("Main");
 
             _incomingService.Write(incoming);
             _consumptionService.Write(consumption);
 
-            var table = _db.GetTable<RemainNomenclature>();
-            foreach (var item in table.Where(p => p.RecordType == RecordType.Expose))
-            {
-                item.Quantity = -item.Quantity;
-            }
-            var test = table.GroupBy(t => new { t.Nomenclature, t.Warehouse }).Select(g => new RemainNomenclatureBalance
-            {
-                Date = DateTime.Now,
-                Warehouse = g.Key.Warehouse,
-                Nomenclature = g.Key.Nomenclature,
-                Quantity = g.Sum(s => s.Quantity)
-            }).ToList();
+            var result = GetNomenclatureBalance();
 
-            Assert.Equal(0, test.Select(t => t.Quantity).First());
+            ////wrong comparison
+            Assert.Equal(0, result.Select(t => t.Quantity).First());
         }
     }
 }

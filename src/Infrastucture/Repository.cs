@@ -4,7 +4,7 @@ using StudyingProgect.ApplicationCore;
 
 namespace StudyingProgect.Infrastucture
 {
-    public class Repository<T> : IRepository<T> where T : EntityBase
+    public class Repository<T> : IRepository<T> where T : Entity
     {
         private readonly List<T> _table;
 

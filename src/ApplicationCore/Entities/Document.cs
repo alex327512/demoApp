@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace StudyingProgect.ApplicationCore.Entity
+namespace StudyingProgect.ApplicationCore.Entities
 {
-    public abstract class Document : EntityBase
+    public abstract class Document : Entity
     {
         public DateTime Date { get; set; }
 

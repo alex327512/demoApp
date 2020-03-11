@@ -1,4 +1,4 @@
-﻿using StudyingProgect.ApplicationCore.Entity;
+﻿using StudyingProgect.ApplicationCore.Entities;
 using StudyingProgect.ApplicationCore.Models;
 using System;
 using System.Collections.Generic;

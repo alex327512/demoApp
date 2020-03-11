@@ -1,4 +1,5 @@
-﻿using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore;
+using StudyingProgect.ApplicationCore.Models;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
@@ -6,10 +7,17 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 {
     public class WarehouseRepositoryTests
     {
+        private readonly IDb _db;
+
+        public WarehouseRepositoryTests()
+        {
+            _db = new State();
+        }
+
         [Fact]
         public void TestWarehouseDbAdd_WithNewWarehouse_ShouldAddTheWarehouseToDb()
         {
-            var repository = new WarehouseRepository();
+            var repository = new Repository<Warehouse>(_db);
             var warehouse = new Warehouse("first desc");
             var warehouseFindById = repository.GetById(warehouse.Id);
             Assert.Null(warehouseFindById);
@@ -21,7 +29,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestWarehouseDbFindById_WithWarehouseId_ShouldFindTheWarehouseInDbById()
         {
-            var repository = new WarehouseRepository();
+            var repository = new Repository<Warehouse>(_db);
             var warehouse = new Warehouse("first desc");
             repository.Create(warehouse);
             var warehouseFindById = repository.GetById(warehouse.Id);
@@ -31,7 +39,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestWarehouseDbUbdate_WithNewWarehouse_ShouldUpdateTheWarehouseToDb()
         {
-            var repository = new WarehouseRepository();
+            var repository = new Repository<Warehouse>(_db);
             var warehouse = new Warehouse("first desc");
             repository.Create(warehouse);
             var warehouseFindById = repository.GetById(warehouse.Id);
@@ -44,7 +52,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestWarehouseDbDelete_WithWarehouse_ShouldDeleteTheWarehouseFromDb()
         {
-            var repository = new WarehouseRepository();
+            var repository = new Repository<Warehouse>(_db);
             var warehouse = new Warehouse("first desc");
             repository.Create(warehouse);
             var warehouseFindById = repository.GetById(warehouse.Id);

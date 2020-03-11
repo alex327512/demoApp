@@ -40,7 +40,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestNomenclatureDbUbdate_WithNewNomenclature_ShouldUpdateTheNomenclatureToDb()
         {
-            var repository = new NomenclatureRepository();
+            var repository = new Repository<Nomenclature>(_db);
             var nomenclature = new Nomenclature("fist desc");
             repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);
@@ -53,7 +53,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestNomenclatureDbDelete_WithNomenclature_ShouldDeleteTheNomenclatureFromDb()
         {
-            var repository = new NomenclatureRepository();
+            var repository = new Repository<Nomenclature>(_db);
             var nomenclature = new Nomenclature("fist desc");
             repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);

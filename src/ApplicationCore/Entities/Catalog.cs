@@ -1,6 +1,6 @@
-﻿namespace StudyingProgect.ApplicationCore.Entity
+﻿namespace StudyingProgect.ApplicationCore.Entities
 {
-    public abstract class Catalog : EntityBase
+    public abstract class Catalog : Entity
     {
         protected Catalog() : base()
         {

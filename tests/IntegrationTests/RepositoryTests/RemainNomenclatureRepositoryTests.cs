@@ -1,4 +1,5 @@
-﻿using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore;
+using StudyingProgect.ApplicationCore.Models;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
@@ -7,10 +8,17 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
 
     public class RemainNomenclatureRepositoryTests
     {
+        private readonly IDb _db;
+
+        public RemainNomenclatureRepositoryTests()
+        {
+            _db = new State();
+        }
+
         [Fact]
         public void TestRemainNomenclatureDbAdd_WithNewRemainNomenclature_ShouldAddTheRemainNomenclatureToDb()
         {
-            var repository = new RemainNomenclatureRepository();
+            var repository = new Repository<RemainNomenclature>(_db);
             var remainNomenclature = new RemainNomenclature();
             var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
             Assert.Null(remainNomenclatureById);
@@ -22,7 +30,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestRemainNomenclatureDbFindById_WithRemainNomenclatureId_ShouldFindTheRemainNomenclatureInDbById()
         {
-            var repository = new RemainNomenclatureRepository();
+            var repository = new Repository<RemainNomenclature>(_db);
             var remainNomenclature = new RemainNomenclature();
             repository.Create(remainNomenclature);
             var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
@@ -32,7 +40,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestRemainNomenclatureDbUbdate_WithNewRemainNomenclature_ShouldUpdateTheRemainNomenclatureToDb()
         {
-            var repository = new RemainNomenclatureRepository();
+            var repository = new Repository<RemainNomenclature>(_db);
             var remainNomenclature = new RemainNomenclature();
             repository.Create(remainNomenclature);
             var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
@@ -46,7 +54,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestRemainNomenclatureDbDelete_WithRemainNomenclature_ShouldDeleteTheRemainNomenclatureFromDb()
         {
-            var repository = new RemainNomenclatureRepository();
+            var repository = new Repository<RemainNomenclature>(_db);
             var remainNomenclature = new RemainNomenclature();
             repository.Create(remainNomenclature);
             var remainNomenclatureById = repository.GetById(remainNomenclature.Id);

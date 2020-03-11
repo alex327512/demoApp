@@ -1,4 +1,4 @@
-﻿using StudyingProgect.ApplicationCore.Entity;
+﻿using StudyingProgect.ApplicationCore.Entities;
 
 namespace StudyingProgect.ApplicationCore.Models
 {

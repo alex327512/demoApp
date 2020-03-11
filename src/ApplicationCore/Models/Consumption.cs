@@ -1,6 +1,6 @@
 ﻿using StudyingProgect.ApplicationCore.Models;
 using System.Collections.Generic;
-using StudyingProgect.ApplicationCore.Entity;
+using StudyingProgect.ApplicationCore.Entities;
 using System;
 
 namespace StudyingProgect.ApplicationCore
