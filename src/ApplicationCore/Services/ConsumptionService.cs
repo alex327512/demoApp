@@ -21,8 +21,11 @@ namespace StudyingProgect.ApplicationCore.Services
             {
                 var record = new RemainNomenclature
                 {
-                    
+                    Nomenclature = item.Nomenclature,
+                    RecordType = RecordType.Expose,
+                    Quantity = item.Quantity,
                 };
+                record.Warehouse = consumption.Warehouse;
                 _remainNomenclature.Create(record);
             }
 

@@ -17,7 +17,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestAssemblageDbAdd_WithNewAssemblage_ShouldAddTheAssemblageToDb()
         {
-            var repository = new RepositoryBase<Assemblage>(_db);
+            var repository = new Repository<Assemblage>(_db);
             var assemblage = new Assemblage();
             var assemblageFindById = repository.GetById(assemblage.Id);
             Assert.Null(assemblageFindById);
@@ -29,7 +29,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestAssemblageDbFindById_WithAssemblageId_ShouldFindTheAssemblageInDbById()
         {
-            var repository = new RepositoryBase<Assemblage>(_db);
+            var repository = new Repository<Assemblage>(_db);
             var assemblage = new Assemblage();
             repository.Create(assemblage);
             var assemblageFindById = repository.GetById(assemblage.Id);
@@ -39,7 +39,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestAssemblageDbUbdate_WithNewAssemblage_ShouldUpdateTheAssemblageToDb()
         {
-            var repository = new RepositoryBase<Assemblage>(_db);
+            var repository = new Repository<Assemblage>(_db);
             var assemblage = new Assemblage();
             repository.Create(assemblage);
             var assemblageFindById = repository.GetById(assemblage.Id);
@@ -53,7 +53,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestAssemblageDbDelete_WithAssemblage_ShouldDeleteTheAssemblageFromDb()
         {
-            var repository = new RepositoryBase<Assemblage>(_db);
+            var repository = new Repository<Assemblage>(_db);
             var assemblage = new Assemblage();
             repository.Create(assemblage);
             var assemblageFindById = repository.GetById(assemblage.Id);

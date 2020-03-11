@@ -3,7 +3,7 @@ using StudyingProgect.ApplicationCore;
 
 namespace StudyingProgect.Infrastucture
 {
-    public interface IRepository<T> where T : EntityBase
+    public interface IRepository<T> where T : Entity
     {
         T GetById(Guid id);
         void Create(T item);

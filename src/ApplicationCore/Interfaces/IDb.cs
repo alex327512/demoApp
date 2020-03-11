@@ -5,5 +5,6 @@ namespace StudyingProgect.Infrastucture
     public interface IDb
     {
         List<T> GetTable<T>();
+        void Initialize();
     }
 }

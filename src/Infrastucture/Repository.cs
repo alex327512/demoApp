@@ -4,11 +4,11 @@ using StudyingProgect.ApplicationCore;
 
 namespace StudyingProgect.Infrastucture
 {
-    public class RepositoryBase<T> : IRepository<T> where T : EntityBase
+    public class Repository<T> : IRepository<T> where T : EntityBase
     {
         private readonly List<T> _table;
 
-        public RepositoryBase(IDb db)
+        public Repository(IDb db)
         {
             _table = db.GetTable<T>();
         }
@@ -26,7 +26,7 @@ namespace StudyingProgect.Infrastucture
         public void Update(T item)
         {
             var itemForRemove = _table.Find(n => n.Id == item.Id);
-            var index = _table.IndexOf(itemForUpdate);
+            var index = _table.IndexOf(itemForRemove);
             _table.RemoveAt(index);
             _table.Insert(index, item);
         }

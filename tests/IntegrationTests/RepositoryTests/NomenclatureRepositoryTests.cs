@@ -18,7 +18,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestNomenclatureDbAdd_WithNewNomenclature_ShouldAddTheNomenclatureToDb()
         {
-            var repository = new RepositoryBase<Nomenclature>(_db);
+            var repository = new Repository<Nomenclature>(_db);
             var nomenclature = new Nomenclature("fist desc");
             var nomencFindById = repository.GetById(nomenclature.Id);
             Assert.Null(nomencFindById);
@@ -30,7 +30,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         [Fact]
         public void TestNomenclatureDbFindById_WithNomenclatureId_ShouldFindTheNomenclatureInDbById()
         {
-            var repository = new NomenclatureRepository();
+            var repository = new Repository<Nomenclature>(_db);
             var nomenclature = new Nomenclature("fist desc");
             repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);

@@ -81,5 +81,7 @@ namespace StudyingProgect.ApplicationCore
             }
             return (List<T>)null;
         }
+
+
     }
 }

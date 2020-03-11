@@ -2,10 +2,10 @@
 
 namespace StudyingProgect.ApplicationCore
 {
-    public abstract class EntityBase
+    public abstract class Entity
     {
         public Guid Id { get; set; }
 
-        protected EntityBase() => Id = Guid.NewGuid();
+        protected Entity() => Id = Guid.NewGuid();
     }
 }
