@@ -9,11 +9,13 @@ namespace StudyingProgect.ApplicationCore.Services.Documents
     {
         private readonly IRepository<Incoming> _repository;
         private readonly IRepository<RemainNomenclature> _remainNomenclature;
+        private readonly IRepository<RemainCostPrice> _remainCostPrice;
 
-        public IncomingService(IRepository<Incoming> repository, IRepository<RemainNomenclature> remainNomenclature)
+        public IncomingService(IRepository<Incoming> repository, IRepository<RemainNomenclature> remainNomenclature, IRepository<RemainCostPrice> remainCostPrice)
         {
             _repository = repository;
             _remainNomenclature = remainNomenclature;
+            _remainCostPrice = remainCostPrice;
 
         }
 
@@ -22,19 +24,30 @@ namespace StudyingProgect.ApplicationCore.Services.Documents
             var select = incoming.ListOfNomenc.GroupBy(i => i.Nomenclature).Select(g => new LineItem()
             {
                 Nomenclature = g.Key,
-                Quantity = g.Sum(i => i.Quantity)
+                Quantity = g.Sum(i => i.Quantity),
+                Sum = g.Sum(i => i.Sum)
             }) ;
 
             foreach (var item in select)
             {
-                var record = new RemainNomenclature
+                var recordNomenclature = new RemainNomenclature
                 {
                     Nomenclature = item.Nomenclature,
                     RecordType = RecordType.Receipt,
                     Quantity = item.Quantity,
                 };
-                record.Warehouse = incoming.Warehouse;
-                _remainNomenclature.Create(record);
+
+                var recordCostPrice = new RemainCostPrice
+                {
+                    Nomenclature = item.Nomenclature,
+                    Amount = item.Quantity,
+                    Sum = item.Sum,
+                    RecordType = RecordType.Receipt,
+                };
+
+                recordNomenclature.Warehouse = incoming.Warehouse;
+                _remainNomenclature.Create(recordNomenclature);
+                _remainCostPrice.Create(recordCostPrice);
             }
 
             _repository.Create(incoming);
