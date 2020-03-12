@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using StudyingProgect.ApplicationCore;
+using StudyingProgect.ApplicationCore.Entities;
+using StudyingProgect.ApplicationCore.Interfaces;
 
 namespace StudyingProgect.Infrastucture
 {

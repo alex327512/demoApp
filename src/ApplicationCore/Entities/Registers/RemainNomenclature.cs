@@ -1,13 +1,9 @@
-﻿using StudyingProgect.ApplicationCore.Entities;
+﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
 
-namespace StudyingProgect.ApplicationCore.Models
+namespace StudyingProgect.ApplicationCore.Entities.Registers
 {
     public class RemainNomenclature : Document
     {
-        ////public DateTime Date { get; set; }
-
-       ///// public Guid DocumentId { get; set; }
-
         public Nomenclature Nomenclature { get; set; }
 
         public Warehouse Warehouse { get; set; }

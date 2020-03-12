@@ -1,7 +1,6 @@
-﻿using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
 
-
-namespace StudyingProgect.ApplicationCore
+namespace StudyingProgect.ApplicationCore.Entities.Documents
 {
     public class LineItem
     {

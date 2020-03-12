@@ -1,9 +1,9 @@
-﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
+using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
-namespace StudyingProgect.RepositoryTests.IntegrationTests
+namespace StudyingProgect.IntegrationTests.Repository.Catalogs
 {
     public class WarehouseRepositoryTests
     {
@@ -20,6 +20,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var repository = new Repository<Warehouse>(_db);
             var warehouse = new Warehouse("first desc");
             var warehouseFindById = repository.GetById(warehouse.Id);
+
             Assert.Null(warehouseFindById);
             repository.Create(warehouse);
             warehouseFindById = repository.GetById(warehouse.Id);
@@ -31,6 +32,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Warehouse>(_db);
             var warehouse = new Warehouse("first desc");
+
             repository.Create(warehouse);
             var warehouseFindById = repository.GetById(warehouse.Id);
             Assert.Equal(warehouse.Id, warehouseFindById.Id);
@@ -41,6 +43,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Warehouse>(_db);
             var warehouse = new Warehouse("first desc");
+
             repository.Create(warehouse);
             var warehouseFindById = repository.GetById(warehouse.Id);
             Assert.Equal("first desc", warehouseFindById.Description);
@@ -54,6 +57,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Warehouse>(_db);
             var warehouse = new Warehouse("first desc");
+
             repository.Create(warehouse);
             var warehouseFindById = repository.GetById(warehouse.Id);
             Assert.NotNull(warehouseFindById);

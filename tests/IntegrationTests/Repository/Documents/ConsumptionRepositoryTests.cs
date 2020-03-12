@@ -1,9 +1,9 @@
-﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
+using StudyingProgect.ApplicationCore.Entities.Documents;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
-namespace StudyingProgect.RepositoryTests.IntegrationTests
+namespace StudyingProgect.IntegrationTests.Repository.Documents
 {
     public class ConsumptionRepositoryTests
     {
@@ -20,6 +20,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var repository = new Repository<Consumption>(_db);
             var consumption = new Consumption();
             var consumptionFindById = repository.GetById(consumption.Id);
+
             Assert.Null(consumptionFindById);
             repository.Create(consumption);
             consumptionFindById = repository.GetById(consumption.Id);
@@ -31,6 +32,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Consumption>(_db);
             var consumption = new Consumption();
+
             repository.Create(consumption);
             var consumptionFindById = repository.GetById(consumption.Id);
             Assert.Equal(consumption.Id, consumptionFindById.Id);
@@ -41,6 +43,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Consumption>(_db);
             var consumption = new Consumption();
+
             repository.Create(consumption);
             var consumptionFindById = repository.GetById(consumption.Id);
             Assert.Null(consumptionFindById.Warehouse);
@@ -55,6 +58,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Consumption>(_db);
             var consumption = new Consumption();
+
             repository.Create(consumption);
             var consumptionFindById = repository.GetById(consumption.Id);
             Assert.NotNull(consumptionFindById);

@@ -1,8 +1,9 @@
 ﻿using System;
+using StudyingProgect.ApplicationCore.Entities.Catalogs;
 
-namespace StudyingProgect.ApplicationCore.Models
+namespace StudyingProgect.ApplicationCore.Entities.Registers
 {
-    public class RemainNomenclatureBalance
+    public class RemainNomenclatureBalance : Entity
     {
         public DateTime Date { get; set; }
 

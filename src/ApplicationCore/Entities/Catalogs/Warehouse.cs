@@ -1,15 +1,12 @@
-﻿using StudyingProgect.ApplicationCore.Entities;
-
-namespace StudyingProgect.ApplicationCore.Models
+﻿namespace StudyingProgect.ApplicationCore.Entities.Catalogs
 {
     public class Warehouse : Catalog
     {
-
-        public string Description { get; set; }
-
         public Warehouse(string description) : base()
         {
             Description = description;
         }
+
+        public string Description { get; set; }
     }
 }

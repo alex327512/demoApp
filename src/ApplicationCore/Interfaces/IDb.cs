@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace StudyingProgect.Infrastucture
+namespace StudyingProgect.ApplicationCore.Interfaces
 {
     public interface IDb
     {

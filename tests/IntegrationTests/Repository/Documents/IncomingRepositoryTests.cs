@@ -1,10 +1,11 @@
-﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
+using StudyingProgect.ApplicationCore.Entities.Documents;
+using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
 
-namespace StudyingProgect.RepositoryTests.IntegrationTests
+namespace StudyingProgect.IntegrationTests.Repository.Documents
 {
 
     public class IncomingRepositoryTests
@@ -22,6 +23,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var repository = new Repository<Incoming>(_db);
             var incoming = new Incoming();
             var incomingdById = repository.GetById(incoming.Id);
+
             Assert.Null(incomingdById);
             repository.Create(incoming);
             incomingdById = repository.GetById(incoming.Id);
@@ -33,6 +35,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Incoming>(_db);
             var incoming = new Incoming();
+
             repository.Create(incoming);
             var incomingdById = repository.GetById(incoming.Id);
             Assert.Equal(incoming.Id, incomingdById.Id);
@@ -43,6 +46,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Incoming>(_db);
             var incoming = new Incoming();
+
             repository.Create(incoming);
             var incomingdById = repository.GetById(incoming.Id);
             Assert.Null(incomingdById.Warehouse);
@@ -57,6 +61,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Incoming>(_db);
             var incoming = new Incoming();
+
             repository.Create(incoming);
             var incomingdById = repository.GetById(incoming.Id);
             Assert.NotNull(incomingdById);

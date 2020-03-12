@@ -1,9 +1,9 @@
-﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
+using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
-namespace StudyingProgect.RepositoryTests.IntegrationTests
+namespace StudyingProgect.IntegrationTests.Repository.Catalogs
 {
 
     public class NomenclatureRepositoryTests
@@ -21,6 +21,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var repository = new Repository<Nomenclature>(_db);
             var nomenclature = new Nomenclature("fist desc");
             var nomencFindById = repository.GetById(nomenclature.Id);
+
             Assert.Null(nomencFindById);
             repository.Create(nomenclature);
             nomencFindById = repository.GetById(nomenclature.Id);
@@ -32,6 +33,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Nomenclature>(_db);
             var nomenclature = new Nomenclature("fist desc");
+
             repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);
             Assert.Equal(nomenclature.Id, nomencFindById.Id);
@@ -42,6 +44,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Nomenclature>(_db);
             var nomenclature = new Nomenclature("fist desc");
+
             repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);
             Assert.Equal("fist desc", nomencFindById.Description);
@@ -55,6 +58,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Nomenclature>(_db);
             var nomenclature = new Nomenclature("fist desc");
+
             repository.Create(nomenclature);
             var nomencFindById = repository.GetById(nomenclature.Id);
             Assert.NotNull(nomencFindById);

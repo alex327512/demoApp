@@ -1,8 +1,9 @@
-﻿using StudyingProgect.ApplicationCore.Models;
-using StudyingProgect.Infrastucture;
+﻿using StudyingProgect.ApplicationCore.Entities.Documents;
+using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Interfaces;
+using System.Linq;
 
-
-namespace StudyingProgect.ApplicationCore.Services
+namespace StudyingProgect.ApplicationCore.Services.Documents
 {
     public class IncomingService
     {
@@ -18,7 +19,13 @@ namespace StudyingProgect.ApplicationCore.Services
 
         public void Write(Incoming incoming)
         {
-            foreach (var item in incoming.ListOfNomenc)
+            var select = incoming.ListOfNomenc.GroupBy(i => i.Nomenclature).Select(g => new LineItem()
+            {
+                Nomenclature = g.Key,
+                Quantity = g.Sum(i => i.Quantity)
+            }) ;
+
+            foreach (var item in select)
             {
                 var record = new RemainNomenclature
                 {
@@ -29,7 +36,6 @@ namespace StudyingProgect.ApplicationCore.Services
                 record.Warehouse = incoming.Warehouse;
                 _remainNomenclature.Create(record);
             }
-
 
             _repository.Create(incoming);
         }

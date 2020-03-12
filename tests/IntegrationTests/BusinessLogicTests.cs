@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
-using StudyingProgect.ApplicationCore.Services;
+using StudyingProgect.ApplicationCore.Entities.Catalogs;
+using StudyingProgect.ApplicationCore.Entities.Documents;
+using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Interfaces;
+using StudyingProgect.ApplicationCore.Services.Documents;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
@@ -28,45 +30,6 @@ namespace StudyingProgect.IntegrationTests
             _remainNomenclatureRepository = new Repository<RemainNomenclature>(_db);
             _incomingService = new IncomingService(_incomingRepository, _remainNomenclatureRepository);
             _consumptionService = new ConsumptionService(_consumptionRepository, _remainNomenclatureRepository);
-        }
-        private Warehouse SelectWarehouse(string warehouseName)
-        {
-            var warehouse = _db.GetTable<Warehouse>();
-            var selectedWarehouse = warehouse.Single(w => w.Description == warehouseName);
-            return selectedWarehouse;
-        }
-
-        private Nomenclature SelectNomenclature(string nomenclatureName)
-        {
-            var nomenclature = _db.GetTable<Nomenclature>();
-            var selectedNomenclature = nomenclature.Single(n => n.Description == nomenclatureName);
-            return selectedNomenclature;
-        }
-
-        private LineItem CreateLineItemWithData(Nomenclature nomenclature, decimal quantity)
-        {
-            var lineItem = new LineItem();
-            lineItem.Nomenclature = nomenclature;
-            lineItem.Quantity = quantity;
-            return lineItem;
-        }
-
-        private List<RemainNomenclatureBalance> GetNomenclatureBalance()
-        {
-            var table = _db.GetTable<RemainNomenclature>();
-            foreach (var item in table.Where(p => p.RecordType == RecordType.Expose))
-            {
-                item.Quantity = -item.Quantity;
-            }
-            var test = table.GroupBy(t => new { t.Nomenclature, t.Warehouse }).Select(g => new RemainNomenclatureBalance
-            {
-                Date = DateTime.Now,
-                Warehouse = g.Key.Warehouse,
-                Nomenclature = g.Key.Nomenclature,
-                Quantity = g.Sum(s => s.Quantity)
-            }).ToList();
-
-            return test;
         }
 
         [Fact]
@@ -168,6 +131,48 @@ namespace StudyingProgect.IntegrationTests
 
             ////wrong comparison
             Assert.Equal(0, result.Select(t => t.Quantity).First());
+        }
+
+        private Warehouse SelectWarehouse(string warehouseName)
+        {
+            var warehouse = _db.GetTable<Warehouse>();
+            var selectedWarehouse = warehouse.Single(w => w.Description == warehouseName);
+            return selectedWarehouse;
+        }
+
+        private Nomenclature SelectNomenclature(string nomenclatureName)
+        {
+            var nomenclature = _db.GetTable<Nomenclature>();
+            var selectedNomenclature = nomenclature.Single(n => n.Description == nomenclatureName);
+            return selectedNomenclature;
+        }
+
+        private LineItem CreateLineItemWithData(Nomenclature nomenclature, decimal quantity)
+        {
+            var lineItem = new LineItem();
+            lineItem.Nomenclature = nomenclature;
+            lineItem.Quantity = quantity;
+            return lineItem;
+        }
+
+        private List<RemainNomenclatureBalance> GetNomenclatureBalance()
+        {
+            var table = _db.GetTable<RemainNomenclature>();
+
+            foreach (var item in table.Where(p => p.RecordType == RecordType.Expose))
+            {
+                item.Quantity = -item.Quantity;
+            }
+
+            var test = table.GroupBy(t => new { t.Nomenclature, t.Warehouse }).Select(g => new RemainNomenclatureBalance
+            {
+                Date = DateTime.Now,
+                Warehouse = g.Key.Warehouse,
+                Nomenclature = g.Key.Nomenclature,
+                Quantity = g.Sum(s => s.Quantity)
+            }).ToList();
+
+            return test;
         }
     }
 }

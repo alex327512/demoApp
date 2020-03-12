@@ -1,9 +1,11 @@
-﻿using StudyingProgect.ApplicationCore.Models;
-using StudyingProgect.Infrastucture;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using StudyingProgect.ApplicationCore.Entities.Catalogs;
+using StudyingProgect.ApplicationCore.Entities.Documents;
+using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Interfaces;
 
-namespace StudyingProgect.ApplicationCore
+namespace StudyingProgect.Infrastucture
 {
     public class State : IDb
     {
@@ -21,6 +23,8 @@ namespace StudyingProgect.ApplicationCore
 
         public  List<RemainNomenclatureBalance> RemainNomenclatureBalance { get; set; }
 
+        public List<Specification> Specification { get; set; }
+
         public State()
         {
             Nomenclature = new List<Nomenclature>();
@@ -30,6 +34,7 @@ namespace StudyingProgect.ApplicationCore
             Consumptions = new List<Consumption>();
             RemainNomenclature = new List<RemainNomenclature>();
             RemainNomenclatureBalance = new List<RemainNomenclatureBalance>();
+            Specification = new List<Specification>();
         }
 
         public void Initialize()
@@ -43,6 +48,11 @@ namespace StudyingProgect.ApplicationCore
             Nomenclature.Add(new Nomenclature("SEAGATE"));
             Nomenclature.Add(new Nomenclature("SAMSUNG"));
             Nomenclature.Add(new Nomenclature("PHILIPS"));
+
+            Nomenclature.Add(new Nomenclature("TYPE-A"));
+            Nomenclature.Add(new Nomenclature("TYPE-B"));
+            Nomenclature.Add(new Nomenclature("TYPE-C"));
+
             Warehouses.Add(new Warehouse("Main"));
             Warehouses.Add(new Warehouse("Additional"));
         }
@@ -78,6 +88,10 @@ namespace StudyingProgect.ApplicationCore
             else if (type == typeof(RemainNomenclatureBalance))
             {
                 return (List<T>)(object)RemainNomenclatureBalance;
+            }
+            else if (type == typeof(Specification))
+            {
+                return (List<T>)(object)Specification;
             }
             return (List<T>)null;
         }

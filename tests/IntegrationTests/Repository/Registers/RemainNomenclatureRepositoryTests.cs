@@ -1,9 +1,10 @@
-﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
+using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
-namespace StudyingProgect.RepositoryTests.IntegrationTests
+namespace StudyingProgect.IntegrationTests.Repository.Registers
 {
 
     public class RemainNomenclatureRepositoryTests
@@ -21,6 +22,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var repository = new Repository<RemainNomenclature>(_db);
             var remainNomenclature = new RemainNomenclature();
             var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
+
             Assert.Null(remainNomenclatureById);
             repository.Create(remainNomenclature);
             remainNomenclatureById = repository.GetById(remainNomenclature.Id);
@@ -32,6 +34,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<RemainNomenclature>(_db);
             var remainNomenclature = new RemainNomenclature();
+
             repository.Create(remainNomenclature);
             var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
             Assert.Equal(remainNomenclature.Id, remainNomenclatureById.Id);
@@ -42,6 +45,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<RemainNomenclature>(_db);
             var remainNomenclature = new RemainNomenclature();
+
             repository.Create(remainNomenclature);
             var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
             Assert.Null(remainNomenclatureById.Warehouse);
@@ -56,6 +60,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<RemainNomenclature>(_db);
             var remainNomenclature = new RemainNomenclature();
+
             repository.Create(remainNomenclature);
             var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
             Assert.NotNull(remainNomenclatureById);

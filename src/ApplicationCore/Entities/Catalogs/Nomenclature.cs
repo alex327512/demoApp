@@ -1,11 +1,7 @@
-﻿using StudyingProgect.ApplicationCore.Entities;
-
-namespace StudyingProgect.ApplicationCore.Models
+﻿namespace StudyingProgect.ApplicationCore.Entities.Catalogs
 {
     public class Nomenclature : Catalog
     {
-        public string Description { get; set; }
-
         public Nomenclature(string description) : this()
         {
             Description = description;
@@ -14,5 +10,6 @@ namespace StudyingProgect.ApplicationCore.Models
         public Nomenclature() : base()
         {
         }
+        public string Description { get; set; }
     }
 }

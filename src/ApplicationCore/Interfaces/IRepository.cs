@@ -1,7 +1,7 @@
 ﻿using System;
-using StudyingProgect.ApplicationCore;
+using StudyingProgect.ApplicationCore.Entities;
 
-namespace StudyingProgect.Infrastucture
+namespace StudyingProgect.ApplicationCore.Interfaces
 {
     public interface IRepository<T> where T : Entity
     {

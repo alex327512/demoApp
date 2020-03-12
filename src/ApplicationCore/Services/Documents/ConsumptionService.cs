@@ -1,7 +1,8 @@
-﻿using StudyingProgect.ApplicationCore.Models;
-using StudyingProgect.Infrastucture;
+﻿using StudyingProgect.ApplicationCore.Entities.Documents;
+using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Interfaces;
 
-namespace StudyingProgect.ApplicationCore.Services
+namespace StudyingProgect.ApplicationCore.Services.Documents
 {
     public class ConsumptionService
     {
@@ -28,7 +29,6 @@ namespace StudyingProgect.ApplicationCore.Services
                 record.Warehouse = consumption.Warehouse;
                 _remainNomenclature.Create(record);
             }
-
 
             _repository.Create(consumption);
         }

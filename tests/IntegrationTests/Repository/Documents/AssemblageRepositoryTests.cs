@@ -1,9 +1,10 @@
-﻿using StudyingProgect.ApplicationCore;
-using StudyingProgect.ApplicationCore.Models;
+﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
+using StudyingProgect.ApplicationCore.Entities.Documents;
+using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
 using Xunit;
 
-namespace StudyingProgect.RepositoryTests.IntegrationTests
+namespace StudyingProgect.IntegrationTests.Repository.Documents
 {
     public class AssemblageRepositoryTests
     {
@@ -20,6 +21,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
             var repository = new Repository<Assemblage>(_db);
             var assemblage = new Assemblage();
             var assemblageFindById = repository.GetById(assemblage.Id);
+
             Assert.Null(assemblageFindById);
             repository.Create(assemblage);
             assemblageFindById = repository.GetById(assemblage.Id);
@@ -31,6 +33,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Assemblage>(_db);
             var assemblage = new Assemblage();
+
             repository.Create(assemblage);
             var assemblageFindById = repository.GetById(assemblage.Id);
             Assert.Equal(assemblage.Id, assemblageFindById.Id);
@@ -41,6 +44,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Assemblage>(_db);
             var assemblage = new Assemblage();
+
             repository.Create(assemblage);
             var assemblageFindById = repository.GetById(assemblage.Id);
             Assert.Null(assemblageFindById.Warehouse);
@@ -55,6 +59,7 @@ namespace StudyingProgect.RepositoryTests.IntegrationTests
         {
             var repository = new Repository<Assemblage>(_db);
             var assemblage = new Assemblage();
+
             repository.Create(assemblage);
             var assemblageFindById = repository.GetById(assemblage.Id);
             Assert.NotNull(assemblageFindById);
