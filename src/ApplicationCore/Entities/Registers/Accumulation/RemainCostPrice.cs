@@ -1,9 +1,10 @@
 ﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
 using StudyingProgect.ApplicationCore.Entities.Documents;
+using static StudyingProgect.ApplicationCore.Enums.ExpenseEnum;
 
-namespace StudyingProgect.ApplicationCore.Entities.Registers
+namespace StudyingProgect.ApplicationCore.Entities.Registers.Accumulation
 {
-    public class RemainCostPrice : Entity
+    public class RemainCostPrice : AccumulationRegister
     {
         public Nomenclature Nomenclature { get; set; }
 

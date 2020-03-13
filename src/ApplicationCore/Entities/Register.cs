@@ -1,6 +1,6 @@
 ﻿namespace StudyingProgect.ApplicationCore.Entities
 {
-    public class Register
+    public abstract class Register
     {
     }
 }

@@ -1,17 +1,18 @@
 ﻿using System.Linq;
 using StudyingProgect.ApplicationCore.Entities.Documents;
-using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
 using StudyingProgect.ApplicationCore.Interfaces;
+using static StudyingProgect.ApplicationCore.Enums.ExpenseEnum;
 
 namespace StudyingProgect.ApplicationCore.Services.Documents
 {
     public class AssemblageService
     {
         private readonly IRepository<Assemblage> _repository;
-        private readonly IRepository<RemainNomenclature> _remainNomenclature;
-        private readonly IRepository<RemainCostPrice> _remainCostPrice;
+        private readonly IRegisterRepository<RemainNomenclature> _remainNomenclature;
+        private readonly IRegisterRepository<RemainCostPrice> _remainCostPrice;
 
-        public AssemblageService(IRepository<Assemblage> repository, IRepository<RemainNomenclature> remainNomenclature, IRepository<RemainCostPrice> remainCostPrice)
+        public AssemblageService(IRepository<Assemblage> repository, IRegisterRepository<RemainNomenclature> remainNomenclature, IRegisterRepository<RemainCostPrice> remainCostPrice)
         {
             _repository = repository;
             _remainNomenclature = remainNomenclature;
@@ -47,6 +48,7 @@ namespace StudyingProgect.ApplicationCore.Services.Documents
                 _remainCostPrice.Create(recordCostPrice);
             }
             _repository.Create(assemblage);
+
         }
     }
 }

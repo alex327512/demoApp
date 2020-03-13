@@ -1,5 +1,6 @@
 ﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
 using StudyingProgect.ApplicationCore.Entities.Documents;
+using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
 using Xunit;
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using StudyingProgect.ApplicationCore.Entities;
 using StudyingProgect.ApplicationCore.Entities.Catalogs;
 using StudyingProgect.ApplicationCore.Entities.Documents;
-using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
+using StudyingProgect.ApplicationCore.Entities.Registers.Information;
 using StudyingProgect.ApplicationCore.Interfaces;
 
 namespace StudyingProgect.Infrastucture
@@ -57,6 +59,7 @@ namespace StudyingProgect.Infrastucture
             Warehouses.Add(new Warehouse("Additional"));
         }
 
+        //// как задать ограничение по классу? where T : class не работает
         public List<T> GetTable<T>()
         {
             Type type = typeof(T);
@@ -96,6 +99,15 @@ namespace StudyingProgect.Infrastucture
             return (List<T>)null;
         }
 
+        public void RecalcBalances<T>() where T : Register
+        {
+            Type type = typeof(T);
+        }
+
+        private Recalc()
+        {
+
+        }
 
     }
 }

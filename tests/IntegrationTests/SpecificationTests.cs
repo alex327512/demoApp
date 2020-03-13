@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using StudyingProgect.ApplicationCore.Entities.Catalogs;
-using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Entities.Registers.Information;
 using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
 using Xunit;
@@ -10,12 +10,12 @@ namespace StudyingProgect.IntegrationTests
     public class SpecificationTests
     {
         private readonly IDb _db;
-        private readonly IRepository<Specification> _specificationRepository;
+        private readonly IRegisterRepository<Specification> _specificationRepository;
 
         public SpecificationTests()
         {
             _db = new State();
-            _specificationRepository = new Repository<Specification>(_db);
+            _specificationRepository = new RegisterRepositiry<Specification>(_db);
             _db.Initialize();
         }
 

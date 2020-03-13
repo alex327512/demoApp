@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using StudyingProgect.ApplicationCore.Entities.Catalogs;
 using StudyingProgect.ApplicationCore.Entities.Documents;
-using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
 using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.ApplicationCore.Services.Documents;
 using StudyingProgect.Infrastucture;
 using Xunit;
+using static StudyingProgect.ApplicationCore.Enums.ExpenseEnum;
 
 namespace StudyingProgect.IntegrationTests
 {
@@ -16,7 +17,8 @@ namespace StudyingProgect.IntegrationTests
         private readonly IDb _db;
         private readonly IRepository<Incoming> _incomingRepository;
         private readonly IRepository<Consumption> _consumptionRepository;
-        private readonly IRepository<RemainNomenclature> _remainNomenclatureRepository;
+        private readonly IRegisterRepository<RemainNomenclature> _remainNomenclatureRepository;
+        private readonly IRegisterRepository<RemainCostPrice> _remainCostPrice;
         private readonly IncomingService _incomingService;
         private readonly ConsumptionService _consumptionService;
 
@@ -27,9 +29,10 @@ namespace StudyingProgect.IntegrationTests
             _db.Initialize();
             _incomingRepository = new Repository<Incoming>(_db);
             _consumptionRepository = new Repository<Consumption>(_db);
-            _remainNomenclatureRepository = new Repository<RemainNomenclature>(_db);
-            _incomingService = new IncomingService(_incomingRepository, _remainNomenclatureRepository);
-            _consumptionService = new ConsumptionService(_consumptionRepository, _remainNomenclatureRepository);
+            _remainNomenclatureRepository = new RegisterRepositiry<RemainNomenclature>(_db);
+            _remainCostPrice = new RegisterRepositiry<RemainCostPrice>(_db);
+            _incomingService = new IncomingService(_incomingRepository, _remainNomenclatureRepository, _remainCostPrice);
+            _consumptionService = new ConsumptionService(_consumptionRepository, _remainNomenclatureRepository, _remainCostPrice);
         }
 
         [Fact]
@@ -155,24 +158,24 @@ namespace StudyingProgect.IntegrationTests
             return lineItem;
         }
 
-        private List<RemainNomenclatureBalance> GetNomenclatureBalance()
-        {
-            var table = _db.GetTable<RemainNomenclature>();
+        ////private List<RemainNomenclatureBalance> GetNomenclatureBalance()
+        ////{
+        ////    var table = _db.GetTable<RemainNomenclature>();
 
-            foreach (var item in table.Where(p => p.RecordType == RecordType.Expose))
-            {
-                item.Quantity = -item.Quantity;
-            }
+        ////    foreach (var item in table.Where(p => p.RecordType == RecordType.Expose))
+        ////    {
+        ////        item.Quantity = -item.Quantity;
+        ////    }
 
-            var test = table.GroupBy(t => new { t.Nomenclature, t.Warehouse }).Select(g => new RemainNomenclatureBalance
-            {
-                Date = DateTime.Now,
-                Warehouse = g.Key.Warehouse,
-                Nomenclature = g.Key.Nomenclature,
-                Quantity = g.Sum(s => s.Quantity)
-            }).ToList();
+        ////    var test = table.GroupBy(t => new { t.Nomenclature, t.Warehouse }).Select(g => new RemainNomenclatureBalance
+        ////    {
+        ////        Date = DateTime.Now,
+        ////        Warehouse = g.Key.Warehouse,
+        ////        Nomenclature = g.Key.Nomenclature,
+        ////        Quantity = g.Sum(s => s.Quantity)
+        ////    }).ToList();
 
-            return test;
-        }
+        ////    return test;
+        ////}
     }
 }

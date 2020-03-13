@@ -1,8 +1,8 @@
 ﻿using StudyingProgect.ApplicationCore.Entities.Catalogs;
 
-namespace StudyingProgect.ApplicationCore.Entities.Registers
+namespace StudyingProgect.ApplicationCore.Entities.Registers.Information
 {
-    public class Specification : Catalog
+    public class Specification : InformationRegister
     {
         public Nomenclature Kit { get; set; }
 

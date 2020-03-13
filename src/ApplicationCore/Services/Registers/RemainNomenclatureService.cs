@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
 using StudyingProgect.ApplicationCore.Interfaces;
 
 namespace StudyingProgect.ApplicationCore.Services.Registers

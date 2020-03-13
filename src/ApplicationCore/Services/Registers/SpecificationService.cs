@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using StudyingProgect.ApplicationCore.Entities.Catalogs;
-using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Entities.Registers.Information;
 using StudyingProgect.ApplicationCore.Interfaces;
 
 namespace StudyingProgect.ApplicationCore.Services.Registers

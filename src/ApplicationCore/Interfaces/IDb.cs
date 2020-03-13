@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using StudyingProgect.ApplicationCore.Entities;
 
 namespace StudyingProgect.ApplicationCore.Interfaces
 {
@@ -6,5 +7,6 @@ namespace StudyingProgect.ApplicationCore.Interfaces
     {
         List<T> GetTable<T>();
         void Initialize();
+        void RecalcBalances<T>() where T : Register;
     }
 }
