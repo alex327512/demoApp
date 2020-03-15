@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StudyingProgect.ApplicationCore.Entities;
 using StudyingProgect.ApplicationCore.Interfaces;
 
@@ -15,10 +16,10 @@ namespace StudyingProgect.Infrastucture
             _table = db.GetTable<T>();
         }
 
-        ////public T GetById(Guid id)
-        ////{
-        ////    return _table.Find(n => n.Id == id);
-        ////}
+        public T GetById(Guid id)
+        {
+            return _table.Find(n => n.Id == id);
+        }
 
         public void Create(T item)
         {
@@ -35,7 +36,7 @@ namespace StudyingProgect.Infrastucture
 
         public void Delete(T item)
         {
-            var itemForRemove = _table.Find(n => n.Id == id);
+            var itemForRemove = _table.Find(n => n.Id == item.Id);
             _table.Remove(itemForRemove);
         }
 

@@ -48,6 +48,8 @@ namespace StudyingProgect.ApplicationCore.Services.Documents
                 _remainCostPrice.Create(recordCostPrice);
             }
             _repository.Create(assemblage);
+            _remainNomenclature.RecalcBalances();
+            _remainCostPrice.RecalcBalances();
 
         }
     }
