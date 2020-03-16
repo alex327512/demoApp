@@ -42,9 +42,10 @@ namespace StudyingProgect.ApplicationCore.Services.Documents
                 var recordCostPrice = new RemainCostPrice
                 {
                     Nomenclature = item.Nomenclature,
+                    Incoming = incoming,
                     Amount = item.Quantity,
                     Sum = item.Sum,
-                    RecordType = RecordType.Receipt,
+                    RecordType = RecordType.Receipt
                 };
 
                 _remainNomenclature.Create(recordNomenclature);

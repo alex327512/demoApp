@@ -22,6 +22,7 @@ namespace StudyingProgect.IntegrationTests
         private readonly IncomingService _incomingService;
         private readonly ConsumptionService _consumptionService;
         private readonly IRegisterRepository<RemainNomenclatureBalance> _remainNomenclatureBalance;
+        private readonly IRegisterRepository<RemainCostPriceBalance> _remainCostPriceBalance;
 
 
         public BusinessLogicTests()
@@ -35,6 +36,7 @@ namespace StudyingProgect.IntegrationTests
             _incomingService = new IncomingService(_incomingRepository, _remainNomenclatureRepository, _remainCostPrice);
             _consumptionService = new ConsumptionService(_consumptionRepository, _remainNomenclatureRepository, _remainCostPrice);
             _remainNomenclatureBalance = new RegisterRepositiry<RemainNomenclatureBalance>(_db);
+            _remainCostPriceBalance = new RegisterRepositiry<RemainCostPriceBalance>(_db);
         }
 
         [Fact]
@@ -45,16 +47,22 @@ namespace StudyingProgect.IntegrationTests
 
             var selectedNomenclature = SelectNomenclature("AMD");
 
+            var incomingQuantity = 100;
             incoming.Warehouse = SelectWarehouse("Main");
-            incoming.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 100));
+            incoming.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, incomingQuantity));
 
+            var consumptionQuantity = 100;
             consumption.Warehouse = SelectWarehouse("Main");
-            consumption.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 100));
+            consumption.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, consumptionQuantity));
 
             _incomingService.Write(incoming);
             _consumptionService.Write(consumption);
 
-            Assert.True(true);
+            var costPriceBalance = _db.GetLeftoversRemainCostPriceBalance("AMD");
+            var remainNomenclatureBalance = _db.GetLeftoversRemainNomenclatureBalance("AMD", "Main");
+
+            Assert.Equal(incomingQuantity - consumptionQuantity, costPriceBalance.Select(t => t.Amount).First());
+            Assert.Equal(incomingQuantity - consumptionQuantity, remainNomenclatureBalance.Select(t => t.Quantity).First());
         }
 
         [Fact]
@@ -65,17 +73,22 @@ namespace StudyingProgect.IntegrationTests
 
             var selectedNomenclature = SelectNomenclature("AMD");
 
+            var incomingQuantity = 100;
             incoming.Warehouse = SelectWarehouse("Main");
-            incoming.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 100));
+            incoming.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, incomingQuantity));
 
+            var consumptionQuantity = 50;
             consumption.Warehouse = SelectWarehouse("Main");
-            consumption.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 50));
+            consumption.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, consumptionQuantity));
 
             _incomingService.Write(incoming);
             _consumptionService.Write(consumption);
 
-            Assert.True(true);
-            ///Assert.Equal(50, result.Select(t => t.Quantity).First());
+            var costPriceBalance = _db.GetLeftoversRemainCostPriceBalance("AMD");
+            var remainNomenclatureBalance = _db.GetLeftoversRemainNomenclatureBalance("AMD", "Main");
+
+            Assert.Equal(incomingQuantity - consumptionQuantity, costPriceBalance.Select(t => t.Amount).First());
+            Assert.Equal(incomingQuantity - consumptionQuantity, remainNomenclatureBalance.Select(t => t.Quantity).First());
         }
 
         [Fact]
@@ -86,17 +99,21 @@ namespace StudyingProgect.IntegrationTests
 
             var selectedNomenclature = SelectNomenclature("AMD");
 
+            var incomingQuantity = 50;
             incoming.Warehouse = SelectWarehouse("Main");
-            incoming.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 50));
+            incoming.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, incomingQuantity));
 
+            var consumptionQuantity = 100;
             consumption.Warehouse = SelectWarehouse("Main");
-            consumption.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, 100));
+            consumption.ListOfNomenc.Add(CreateLineItemWithData(selectedNomenclature, consumptionQuantity));
 
             _incomingService.Write(incoming);
             _consumptionService.Write(consumption);
+            var costPriceBalance = _db.GetLeftoversRemainCostPriceBalance("AMD");
+            var remainNomenclatureBalance = _db.GetLeftoversRemainNomenclatureBalance("AMD", "Main");
 
-            Assert.True(true);
-            //// Assert.Equal(-50, result.Select(t => t.Quantity).First());
+             Assert.Equal(incomingQuantity - consumptionQuantity, costPriceBalance.Select(t => t.Amount).First());
+             Assert.Equal(incomingQuantity - consumptionQuantity, remainNomenclatureBalance.Select(t => t.Quantity).First());
         }
 
         [Fact]
@@ -106,20 +123,15 @@ namespace StudyingProgect.IntegrationTests
             var consumption = new Consumption();
             var rand = new Random();
 
-            string[] nomenc = new string[6] { "NVIDIA", "AMD", "WD", "NVIDIA", "AMD", "WD" };
+            string[] nomenc = new string[3] { "NVIDIA", "NVIDIA", "NVIDIA" };
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
-                var lineItem = CreateLineItemWithData(SelectNomenclature(nomenc[i]), rand.Next(1, 100));
-
-                if (i % 2 == 0)
-                {
-                    incoming.ListOfNomenc.Add(lineItem);
-                }
-                else
-                {
-                    consumption.ListOfNomenc.Add(lineItem);
-                }
+                var quantity = 20 * i + 10;
+                var lineItemInc = CreateLineItemWithData(SelectNomenclature("NVIDIA"), quantity + 10*i);
+                var lineItemCons = CreateLineItemWithData(SelectNomenclature("NVIDIA"), quantity);
+                    incoming.ListOfNomenc.Add(lineItemInc);
+                    consumption.ListOfNomenc.Add(lineItemCons);
             }
 
             incoming.Warehouse = SelectWarehouse("Main");
@@ -128,8 +140,14 @@ namespace StudyingProgect.IntegrationTests
             _incomingService.Write(incoming);
             _consumptionService.Write(consumption);
 
+            var costPriceBalance = _db.GetLeftoversRemainCostPriceBalance("NVIDIA");
+            var remainNomenclatureBalance = _db.GetLeftoversRemainNomenclatureBalance("NVIDIA", "Main");
+            var costPriceBalance1 = _db.GetLeftoversRemainCostPriceBalance("AMD");
+            var remainNomenclatureBalance1 = _db.GetLeftoversRemainNomenclatureBalance("AMD", "Main");
+            var costPriceBalance2 = _db.GetLeftoversRemainCostPriceBalance("WD");
+            var remainNomenclatureBalance2 = _db.GetLeftoversRemainNomenclatureBalance("WD", "Main");
             Assert.True(true);
-            ////wrong comparison
+
         }
 
         private Warehouse SelectWarehouse(string warehouseName)
@@ -153,25 +171,5 @@ namespace StudyingProgect.IntegrationTests
             lineItem.Quantity = quantity;
             return lineItem;
         }
-
-        ////private List<RemainNomenclatureBalance> GetNomenclatureBalance()
-        ////{
-        ////    var table = _db.GetTable<RemainNomenclature>();
-
-        ////    foreach (var item in table.Where(p => p.RecordType == RecordType.Expose))
-        ////    {
-        ////        item.Quantity = -item.Quantity;
-        ////    }
-
-        ////    var test = table.GroupBy(t => new { t.Nomenclature, t.Warehouse }).Select(g => new RemainNomenclatureBalance
-        ////    {
-        ////        Date = DateTime.Now,
-        ////        Warehouse = g.Key.Warehouse,
-        ////        Nomenclature = g.Key.Nomenclature,
-        ////        Quantity = g.Sum(s => s.Quantity)
-        ////    }).ToList();
-
-        ////    return test;
-        ////}
     }
 }

@@ -1,12 +1,13 @@
 using StudyingProgect.ApplicationCore.Entities.Catalogs;
 using StudyingProgect.ApplicationCore.Entities.Documents;
-using StudyingProgect.ApplicationCore.Entities.Registers;
+using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
 using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using static StudyingProgect.ApplicationCore.Enums.ExpenseEnum;
 
 namespace UnitTests
 {

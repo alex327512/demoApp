@@ -28,6 +28,7 @@ namespace StudyingProgect.Infrastucture
         public  List<RemainCostPrice> RemainCostPrices { get; set; }
 
         public  List<RemainNomenclatureBalance> RemainNomenclatureBalance { get; set; }
+        public List<RemainCostPriceBalance> RemainCostPriceBalance { get; set; }
 
         public List<Specification> Specification { get; set; }
 
@@ -41,6 +42,7 @@ namespace StudyingProgect.Infrastucture
             RemainNomenclature = new List<RemainNomenclature>();
             RemainCostPrices = new List<RemainCostPrice>();
             RemainNomenclatureBalance = new List<RemainNomenclatureBalance>();
+            RemainCostPriceBalance = new List<RemainCostPriceBalance>();
             Specification = new List<Specification>();
         }
 
@@ -65,7 +67,7 @@ namespace StudyingProgect.Infrastucture
         }
 
         //// как задать ограничение по классу? where T : class не работает
-        public List<T> GetTable<T>()
+        public List<T> GetTable<T>() where T : class
         {
             Type type = typeof(T);
 
@@ -101,6 +103,10 @@ namespace StudyingProgect.Infrastucture
             {
                 return (List<T>)(object)RemainNomenclatureBalance;
             }
+            else if (type == typeof(RemainCostPriceBalance))
+            {
+                return (List<T>)(object)RemainCostPriceBalance;
+            }
             else if (type == typeof(Specification))
             {
                 return (List<T>)(object)Specification;
@@ -123,6 +129,7 @@ namespace StudyingProgect.Infrastucture
 
         private void RecalcRemainNomenclature()
         {
+            RemainNomenclatureBalance.Clear();
             foreach (var item in RemainNomenclature.Where(p => p.RecordType == RecordType.Expose))
             {
                 item.Quantity = -item.Quantity;
@@ -135,23 +142,61 @@ namespace StudyingProgect.Infrastucture
                 Nomenclature = g.Key.Nomenclature,
                 Quantity = g.Sum(s => s.Quantity)
             }).ToList();
-            RemainNomenclatureBalance.Add(remainNomenclatureBalanceItem[0]);
+
+            foreach (var item in remainNomenclatureBalanceItem)
+            {
+                RemainNomenclatureBalance.Add(item);
+            }
         }
         private void RecalcRemainCostPrice()
         {
+            RemainCostPriceBalance.Clear();
             foreach (var item in RemainCostPrices.Where(p => p.RecordType == RecordType.Expose))
             {
                 item.Amount = -item.Amount;
             }
 
-            var remainCostPriceItem = RemainCostPrices.GroupBy(t => t.Nomenclature ).Select(g => new RemainNomenclatureBalance
+            var remainCostPriceItem = RemainCostPrices.GroupBy(t => new { t.Nomenclature} ).Select(g => new RemainCostPriceBalance
             {
                 Date = DateTime.Now,
-                Nomenclature = g.Key,
-                Quantity = g.Sum(s => s.Amount),
+                Nomenclature = g.Key.Nomenclature,
+                Incoming = null,
+                Amount = g.Sum(s => s.Amount),
             }).ToList();
-            RemainNomenclatureBalance.Add(remainCostPriceItem[0]);
+
+            foreach (var item in remainCostPriceItem)
+            {
+                RemainCostPriceBalance.Add(item);
+            }
         }
 
+        public List<RemainNomenclatureBalance> GetLeftoversRemainNomenclatureBalance(string nomenclatureDesc, string warehouseDesc)
+        {
+            var remainNomenclatureBalanceItem = RemainNomenclatureBalance
+                .Where(t => t.Nomenclature.Description == nomenclatureDesc && t.Warehouse.Description == warehouseDesc)
+                .GroupBy(t => new { t.Nomenclature, t.Warehouse })
+                .Select(g => new RemainNomenclatureBalance
+            {
+                Date = DateTime.Now,
+                Warehouse = g.Key.Warehouse,
+                Nomenclature = g.Key.Nomenclature,
+                Quantity = g.Sum(s => s.Quantity)
+            }).ToList();
+            return remainNomenclatureBalanceItem;
+        }
+        public List<RemainCostPriceBalance> GetLeftoversRemainCostPriceBalance(string nomenclatureDesc)
+        {
+            var remainCostPriceItem = RemainCostPriceBalance
+                .Where(t => t.Nomenclature.Description == nomenclatureDesc)
+                .GroupBy(t => new { t.Nomenclature, t.Incoming })
+                .Select(g => new RemainCostPriceBalance
+            {
+                Date = DateTime.Now,
+                Nomenclature = g.Key.Nomenclature,
+                Incoming = g.Key.Incoming,
+                Amount = g.Sum(s => s.Amount),
+            }).ToList();
+            return remainCostPriceItem;
+        }
     }
 }
