@@ -31,6 +31,7 @@ namespace StudyingProgect.Infrastucture
         public List<RemainCostPriceBalance> RemainCostPriceBalance { get; set; }
 
         public List<Specification> Specification { get; set; }
+        public List<AccountingPolicy> AccountingPolicy { get; set; }
 
         public State()
         {
@@ -44,6 +45,7 @@ namespace StudyingProgect.Infrastucture
             RemainNomenclatureBalance = new List<RemainNomenclatureBalance>();
             RemainCostPriceBalance = new List<RemainCostPriceBalance>();
             Specification = new List<Specification>();
+            AccountingPolicy = new List<AccountingPolicy>();
         }
 
         public void Initialize()
@@ -110,6 +112,10 @@ namespace StudyingProgect.Infrastucture
             else if (type == typeof(Specification))
             {
                 return (List<T>)(object)Specification;
+            }
+            else if (type == typeof(AccountingPolicy))
+            {
+                return (List<T>)(object)AccountingPolicy;
             }
             return (List<T>)null;
         }
