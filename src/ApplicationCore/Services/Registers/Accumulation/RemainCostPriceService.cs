@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
 using StudyingProgect.ApplicationCore.Interfaces;
 
-namespace StudyingProgect.ApplicationCore.Services.Registers
+namespace StudyingProgect.ApplicationCore.Services.Registers.Accumulation
 {
     public class RemainCostPriceService
     {

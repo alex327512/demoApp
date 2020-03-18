@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
 using StudyingProgect.ApplicationCore.Interfaces;
 
-namespace StudyingProgect.ApplicationCore.Services.Registers
+namespace StudyingProgect.ApplicationCore.Services.Registers.Accumulation
 {
-    public class RemainNomenclatureBalanceService
+    public class RemainNomenclatureService
     {
-        private readonly List<RemainNomenclatureBalance> _table;
+        private readonly List<RemainNomenclature> _table;
 
-        public RemainNomenclatureBalanceService(IDb db)
+        public RemainNomenclatureService(IDb db)
         {
-            _table = db.GetTable<RemainNomenclatureBalance>();
+            _table = db.GetTable<RemainNomenclature>();
         }
 
-        public RemainNomenclatureBalance GetById(Guid id)
+        public RemainNomenclature GetById(Guid id)
         {
             return _table.Find(n => n.Id == id);
         }
 
-        public void Create(RemainNomenclatureBalance item)
+        public void Create(RemainNomenclature item)
         {
             _table.Add(item);
         }
 
-        public void Update(RemainNomenclatureBalance item)
+        public void Update(RemainNomenclature item)
         {
             var itemForRemove = _table.Find(n => n.Id == item.Id);
             var index = _table.IndexOf(itemForRemove);
@@ -32,7 +32,7 @@ namespace StudyingProgect.ApplicationCore.Services.Registers
             _table.Insert(index, item);
         }
 
-        public void Delete(RemainNomenclatureBalance item)
+        public void Delete(RemainNomenclature item)
         {
             var itemForRemove = _table.Find(n => n == item);
             _table.Remove(itemForRemove);

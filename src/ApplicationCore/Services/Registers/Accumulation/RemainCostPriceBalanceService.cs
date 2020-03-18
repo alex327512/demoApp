@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
 using StudyingProgect.ApplicationCore.Interfaces;
 
-namespace StudyingProgect.ApplicationCore.Services.Registers
+namespace StudyingProgect.ApplicationCore.Services.Registers.Accumulation
 {
-    public class RemainNomenclatureService
+     public class RemainCostPriceBalanceService
     {
-        private readonly List<RemainNomenclature> _table;
+        private readonly List<RemainCostPriceBalance> _table;
 
-        public RemainNomenclatureService(IDb db)
+        public RemainCostPriceBalanceService(IDb db)
         {
-            _table = db.GetTable<RemainNomenclature>();
+            _table = db.GetTable<RemainCostPriceBalance>();
         }
 
-        public RemainNomenclature GetById(Guid id)
+        public RemainCostPriceBalance GetById(Guid id)
         {
             return _table.Find(n => n.Id == id);
         }
 
-        public void Create(RemainNomenclature item)
+        public void Create(RemainCostPriceBalance item)
         {
             _table.Add(item);
         }
 
-        public void Update(RemainNomenclature item)
+        public void Update(RemainCostPriceBalance item)
         {
             var itemForRemove = _table.Find(n => n.Id == item.Id);
             var index = _table.IndexOf(itemForRemove);
@@ -32,10 +32,11 @@ namespace StudyingProgect.ApplicationCore.Services.Registers
             _table.Insert(index, item);
         }
 
-        public void Delete(RemainNomenclature item)
+        public void Delete(RemainCostPriceBalance item)
         {
             var itemForRemove = _table.Find(n => n == item);
             _table.Remove(itemForRemove);
         }
+
     }
 }

@@ -1,30 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StudyingProgect.ApplicationCore.Entities.Catalogs;
 using StudyingProgect.ApplicationCore.Entities.Registers.Information;
 using StudyingProgect.ApplicationCore.Interfaces;
 
-namespace StudyingProgect.ApplicationCore.Services.Registers
+namespace StudyingProgect.ApplicationCore.Services.Registers.Information
 {
-    public class SpecificationService
+    public class AccountingPolicyService
     {
-        private readonly List<Specification> _table;
+        private readonly List<AccountingPolicy> _table;
 
-        public SpecificationService(IDb db)
+        public AccountingPolicyService(IDb db)
         {
-            _table = db.GetTable<Specification>();
+            _table = db.GetTable<AccountingPolicy>();
         }
 
-        public Specification Get(Nomenclature kit)
+        public AccountingPolicy Get(Nomenclature item)
         {
-            return _table.Find(n => n.Kit.Id == kit.Id);
+            return _table.Find(n => n.Id == item.Id);
         }
 
-        public void Create(Specification item)
+        public void Create(AccountingPolicy item)
         {
             _table.Add(item);
         }
 
-        public void Update(Specification item)
+        public void Update(AccountingPolicy item)
         {
             var itemForRemove = _table.Find(n => n.Id == item.Id);
             var index = _table.IndexOf(itemForRemove);
@@ -32,7 +33,7 @@ namespace StudyingProgect.ApplicationCore.Services.Registers
             _table.Insert(index, item);
         }
 
-        public void Delete(Specification item)
+        public void Delete(AccountingPolicy item)
         {
             var itemForRemove = _table.Find(n => n == item);
             _table.Remove(itemForRemove);
