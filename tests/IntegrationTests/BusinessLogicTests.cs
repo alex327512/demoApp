@@ -116,8 +116,8 @@ namespace StudyingProgect.IntegrationTests
             {
                 Assert.NotNull(e);
             }
-           ///// var costPriceBalance = _db.GetLeftoversRemainCostPriceBalance("AMD");
-          /////  var remainNomenclatureBalance = _db.GetLeftoversRemainNomenclatureBalance("AMD", "Main");
+            ///// var costPriceBalance = _db.GetLeftoversRemainCostPriceBalance("AMD");
+            /////  var remainNomenclatureBalance = _db.GetLeftoversRemainNomenclatureBalance("AMD", "Main");
 
             //// Assert.Equal(incomingQuantity - consumptionQuantity, costPriceBalance.Select(t => t.Amount).First());
             //// Assert.Equal(incomingQuantity - consumptionQuantity, remainNomenclatureBalance.Select(t => t.Quantity).First());
@@ -135,10 +135,10 @@ namespace StudyingProgect.IntegrationTests
             for (int i = 0; i < 3; i++)
             {
                 var quantity = 20 * i + 10;
-                var lineItemInc = CreateLineItemWithData(SelectNomenclature("NVIDIA"), quantity + 10*i);
+                var lineItemInc = CreateLineItemWithData(SelectNomenclature("NVIDIA"), quantity + 10 * i);
                 var lineItemCons = CreateLineItemWithData(SelectNomenclature("NVIDIA"), quantity);
-                    incoming.ListOfNomenc.Add(lineItemInc);
-                    consumption.ListOfNomenc.Add(lineItemCons);
+                incoming.ListOfNomenc.Add(lineItemInc);
+                consumption.ListOfNomenc.Add(lineItemCons);
             }
 
             incoming.Warehouse = SelectWarehouse("Main");

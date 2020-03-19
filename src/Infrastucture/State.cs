@@ -66,6 +66,7 @@ namespace StudyingProgect.Infrastucture
 
             Warehouses.Add(new Warehouse("Main"));
             Warehouses.Add(new Warehouse("Additional"));
+            Warehouses.Add(new Warehouse("Another"));
         }
 
         //// как задать ограничение по классу? where T : class не работает
