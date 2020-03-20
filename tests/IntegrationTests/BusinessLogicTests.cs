@@ -7,6 +7,7 @@ using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
 using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.ApplicationCore.Services.Documents;
 using StudyingProgect.Infrastucture;
+using StudyingProgect.Infrastucture.RegistersRepositories.Accumulation;
 using Xunit;
 using static StudyingProgect.ApplicationCore.Enums.ExpenseEnum;
 
@@ -31,12 +32,12 @@ namespace StudyingProgect.IntegrationTests
             _db.Initialize();
             _incomingRepository = new Repository<Incoming>(_db);
             _consumptionRepository = new Repository<Consumption>(_db);
-            _remainNomenclatureRepository = new RegisterRepositiry<RemainNomenclature>(_db);
-            _remainCostPrice = new RegisterRepositiry<RemainCostPrice>(_db);
+            _remainNomenclatureRepository = new RemainNomenclatureRegisterRepository(_db);
+            _remainCostPrice = new RemainCostPriceRegisterRepository(_db);
             _incomingService = new IncomingService(_incomingRepository, _remainNomenclatureRepository, _remainCostPrice);
             _consumptionService = new ConsumptionService(_consumptionRepository, _remainNomenclatureRepository, _remainCostPrice, _db);
-            _remainNomenclatureBalance = new RegisterRepositiry<RemainNomenclatureBalance>(_db);
-            _remainCostPriceBalance = new RegisterRepositiry<RemainCostPriceBalance>(_db);
+            _remainNomenclatureBalance = new RemainNomenclatureBalanceRegisterRepository(_db);
+            _remainCostPriceBalance = new RemainCostPriceBalanceRegisterRepository(_db);
         }
 
         [Fact]

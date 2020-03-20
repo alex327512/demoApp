@@ -12,7 +12,7 @@ namespace StudyingProgect.ApplicationCore.Services.Documents
         private readonly IRepository<Consumption> _repository;
         private readonly IRegisterRepository<RemainNomenclature> _remainNomenclature;
         private readonly IRegisterRepository<RemainCostPrice> _remainCostPrice;
-        private readonly List<RemainNomenclature> _table;
+        private readonly List<RemainNomenclatureBalance> _table;
 
 
         public ConsumptionService(IRepository<Consumption> repository, IRegisterRepository<RemainNomenclature> remainNomenclature, IRegisterRepository<RemainCostPrice> remainCostPrice, IDb db)
@@ -20,7 +20,7 @@ namespace StudyingProgect.ApplicationCore.Services.Documents
             _repository = repository;
             _remainNomenclature = remainNomenclature;
             _remainCostPrice = remainCostPrice;
-            _table = db.GetTable<RemainNomenclature>();
+            _table = db.GetTable<RemainNomenclatureBalance>();
 
         }
 

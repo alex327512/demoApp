@@ -4,7 +4,9 @@ using StudyingProgect.ApplicationCore.Entities.Registers.Information;
 using StudyingProgect.ApplicationCore.Enums;
 using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
+using StudyingProgect.Infrastucture.RegistersRepositories.Information;
 using Xunit;
+using static StudyingProgect.ApplicationCore.Enums.WriteOffMethod;
 
 namespace StudyingProgect.IntegrationTests
 {
@@ -16,7 +18,7 @@ namespace StudyingProgect.IntegrationTests
         public AccountingPolicyTests()
         {
             _db = new State();
-            _accountingPolicyRepository = new RegisterRepositiry<AccountingPolicy>(_db);
+            _accountingPolicyRepository = new AccountingPolicyRegisterRepository(_db);
             _db.Initialize();
         }
 
@@ -25,9 +27,9 @@ namespace StudyingProgect.IntegrationTests
         {
             var accountingPolicyList = _db.GetTable<AccountingPolicy>();
 
-            accountingPolicyList.Add(CreateAccountingPolicyItem(SelectWarehouse("Main"), "FIFO"));
-            accountingPolicyList.Add(CreateAccountingPolicyItem(SelectWarehouse("Additional"), "LIFO"));
-            accountingPolicyList.Add(CreateAccountingPolicyItem(SelectWarehouse("Main"), "ARVG"));
+            accountingPolicyList.Add(CreateAccountingPolicyItem(SelectWarehouse("Main"), WriteMethod.FIFO));
+            accountingPolicyList.Add(CreateAccountingPolicyItem(SelectWarehouse("Additional"), WriteMethod.LIFO));
+            accountingPolicyList.Add(CreateAccountingPolicyItem(SelectWarehouse("Main"), WriteMethod.AVRG));
 
             Assert.NotNull(accountingPolicyList);
 
@@ -49,11 +51,11 @@ namespace StudyingProgect.IntegrationTests
             return selectedWarehouse;
         }
 
-        private AccountingPolicy CreateAccountingPolicyItem(Warehouse warehouse, string writeOffMethodName)
+        private AccountingPolicy CreateAccountingPolicyItem(Warehouse warehouse, WriteMethod writeMethod)
         {
             var accountingPolicy = new AccountingPolicy();
             accountingPolicy.Warehouse = warehouse;
-            accountingPolicy.WriteMethod = WriteOffMethod.GetWriteMethod(writeOffMethodName);
+            accountingPolicy.WriteMethod = writeMethod;
 
 
             return accountingPolicy;

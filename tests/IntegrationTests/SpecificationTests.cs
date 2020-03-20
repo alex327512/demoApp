@@ -3,6 +3,7 @@ using StudyingProgect.ApplicationCore.Entities.Catalogs;
 using StudyingProgect.ApplicationCore.Entities.Registers.Information;
 using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
+using StudyingProgect.Infrastucture.RegistersRepositories.Information;
 using Xunit;
 
 namespace StudyingProgect.IntegrationTests
@@ -15,7 +16,7 @@ namespace StudyingProgect.IntegrationTests
         public SpecificationTests()
         {
             _db = new State();
-            _specificationRepository = new RegisterRepositiry<Specification>(_db);
+            _specificationRepository = new SpecificationRegisterRepository(_db);
             _db.Initialize();
         }
 

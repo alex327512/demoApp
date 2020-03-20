@@ -139,7 +139,10 @@ namespace StudyingProgect.Infrastucture
             RemainNomenclatureBalance.Clear();
             foreach (var item in RemainNomenclature.Where(p => p.RecordType == RecordType.Expose))
             {
+                if (item.Quantity > 0)
+                {
                 item.Quantity = -item.Quantity;
+                }
             }
 
             var remainNomenclatureBalanceItem = RemainNomenclature.GroupBy(t => new { t.Nomenclature, t.Warehouse }).Select(g => new RemainNomenclatureBalance

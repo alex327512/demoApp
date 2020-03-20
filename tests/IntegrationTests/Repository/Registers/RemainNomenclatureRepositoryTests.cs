@@ -2,6 +2,7 @@
 using StudyingProgect.ApplicationCore.Entities.Registers.Accumulation;
 using StudyingProgect.ApplicationCore.Interfaces;
 using StudyingProgect.Infrastucture;
+using StudyingProgect.Infrastucture.RegistersRepositories.Accumulation;
 using Xunit;
 
 namespace StudyingProgect.IntegrationTests.Repository.Registers
@@ -19,7 +20,7 @@ namespace StudyingProgect.IntegrationTests.Repository.Registers
         [Fact]
         public void TestRemainNomenclatureDbAdd_WithNewRemainNomenclature_ShouldAddTheRemainNomenclatureToDb()
         {
-            var repository = new RegisterRepositiry<RemainNomenclature>(_db);
+            var repository = new RemainNomenclatureRegisterRepository(_db);
             var remainNomenclature = new RemainNomenclature();
             var remainNomenclatureById = repository.GetById(remainNomenclature.Id);
 
@@ -32,7 +33,7 @@ namespace StudyingProgect.IntegrationTests.Repository.Registers
         [Fact]
         public void TestRemainNomenclatureDbFindById_WithRemainNomenclatureId_ShouldFindTheRemainNomenclatureInDbById()
         {
-            var repository = new RegisterRepositiry<RemainNomenclature>(_db);
+            var repository = new RemainNomenclatureRegisterRepository(_db);
             var remainNomenclature = new RemainNomenclature();
 
             repository.Create(remainNomenclature);
@@ -43,7 +44,7 @@ namespace StudyingProgect.IntegrationTests.Repository.Registers
         [Fact]
         public void TestRemainNomenclatureDbUbdate_WithNewRemainNomenclature_ShouldUpdateTheRemainNomenclatureToDb()
         {
-            var repository = new RegisterRepositiry<RemainNomenclature>(_db);
+            var repository = new RemainNomenclatureRegisterRepository(_db);
             var remainNomenclature = new RemainNomenclature();
 
             repository.Create(remainNomenclature);
@@ -58,7 +59,7 @@ namespace StudyingProgect.IntegrationTests.Repository.Registers
         [Fact]
         public void TestRemainNomenclatureDbDelete_WithRemainNomenclature_ShouldDeleteTheRemainNomenclatureFromDb()
         {
-            var repository = new RegisterRepositiry<RemainNomenclature>(_db);
+            var repository = new RemainNomenclatureRegisterRepository(_db);
             var remainNomenclature = new RemainNomenclature();
 
             repository.Create(remainNomenclature);
