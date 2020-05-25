@@ -1,0 +1,20 @@
+form.normal-form {
+  margin: 5px;
+}
+
+.controles-container {
+  width: 100%;
+  padding: 15px;
+}
+
+.controles-container>* {
+  width: 100%;
+}
+
+.button-row>button {
+  margin: 5px;
+}
+
+.mat-input-element:disabled {
+  color: rgba(0, 0, 0, .87);
+}

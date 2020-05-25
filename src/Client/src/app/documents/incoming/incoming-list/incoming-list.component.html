@@ -1,0 +1,33 @@
+<div class="form">
+  <ul class="form-data">
+    <li>
+      <label for="Nomenclature">Nomenclature</label>
+      <input id="Nomenclature" type="text" [(ngModel)]="incomingDataService.nomenclature" />
+    </li>
+    <li>
+      <label for="Price">Price</label>
+      <input id="Price" type="text" [(ngModel)]="incomingDataService.price" />
+    </li>
+    <li>
+      <label for="Quantity">Quantity</label>
+      <input id="Quantity" type="text" [(ngModel)]="incomingDataService.quantity" />
+    </li>
+  </ul>
+
+  <button mat-raised-button color="accent" (click)="incomingDataService.addIncoming()">Add incoming</button>
+</div>
+
+
+<!-- <table class="main-info">
+  <thead>
+    <tr>
+      <th>Nomenclature</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let incoming of incomingDataService.incomings" app-incoming-item [incoming]="incoming"></tr>
+  </tbody>
+</table> -->

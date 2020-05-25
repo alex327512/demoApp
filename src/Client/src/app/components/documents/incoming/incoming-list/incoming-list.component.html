@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <mat-card *ngFor="let incoming of incomingData" class="card" [routerLink]="['/incoming', incoming.header.number]">
+    <mat-card-header class="card-header">
+      <mat-card-title>{{incoming.header.title}} № {{incoming.header.number}}</mat-card-title>
+      <mat-card-subtitle>From the {{incoming.header.date|date:'medium'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="card-body">
+      <p>
+        Total positions of products: {{incoming.body.length}}
+      </p>
+    </mat-card-content>
+    <!-- <mat-card-actions class="card-actions">
+      <a [routerLink]="['/incoming', incoming.header.number]">OPEN</a>
+      <button mat-button (click)="onEdit(incoming)">OPEN</button>
+      <button mat-button (click)="onDelete(incoming)">DELETE</button>
+    </mat-card-actions> -->
+  </mat-card>
+</div>
+<button mat-icon-button color="warn" class="add-btn" (click)="addIncoming()">
+  <mat-icon>add</mat-icon>
+</button>

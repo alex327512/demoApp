@@ -163,7 +163,10 @@ namespace StudyingProgect.Infrastucture
             RemainCostPriceBalance.Clear();
             foreach (var item in RemainCostPrices.Where(p => p.RecordType == RecordType.Expose))
             {
-                item.Amount = -item.Amount;
+                if (item.Amount > 0)
+                {
+                    item.Amount = -item.Amount;
+                }
             }
 
             var remainCostPriceItem = RemainCostPrices.GroupBy(t => new { t.Nomenclature} ).Select(g => new RemainCostPriceBalance
@@ -194,6 +197,7 @@ namespace StudyingProgect.Infrastucture
             }).ToList();
             return remainNomenclatureBalanceItem;
         }
+
         public List<RemainCostPriceBalance> GetLeftoversRemainCostPriceBalance(string nomenclatureDesc)
         {
             var remainCostPriceItem = RemainCostPriceBalance

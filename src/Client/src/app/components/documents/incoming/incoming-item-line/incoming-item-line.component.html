@@ -1,0 +1,31 @@
+<form class="normal-form">
+  <div class="controles-container">
+    <mat-form-field>
+      <mat-label>Number</mat-label>
+      <input matInput value="{{this.data.number}}" disabled name="lineNumber">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nomenclature</mat-label>
+      <mat-select name="nomenclatureName" [(ngModel)]="this.data.nomenclature">
+        <mat-option *ngFor="let nomenclature of nomenclatures" [value]="nomenclature.name">
+          {{nomenclature.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Quantity</mat-label>
+      <input [(ngModel)]="this.data.quantity" matInput value="" name="quantity">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>
+        Price
+      </mat-label>
+      <input [(ngModel)]="this.data.price" matInput value="" name="price">
+    </mat-form-field>
+  </div>
+
+  <div class="button-row">
+    <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="data">Save</button>
+    <button mat-raised-button color="warn" (click)="onClose()">Cancel</button>
+  </div>
+</form>

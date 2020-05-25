@@ -1,0 +1,90 @@
+<a [routerLink]="['/incoming']">
+  <mat-icon class="back-page">keyboard_backspace</mat-icon>
+</a>
+
+
+<!-- <div class="wrapper">
+  <mat-card class="card">
+    <mat-card-header class="card-header">
+      <mat-card-title>{{incoming.header.title}} № {{incoming.header.number}}</mat-card-title>
+      <mat-card-subtitle>From the {{incoming.header.date|date:'medium'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="card-body">
+      <p>
+        Total positions of products: {{incoming.body.length}}
+      </p>
+    </mat-card-content>
+     <mat-card-actions class="card-actions">
+        <a [routerLink]="['/incoming', incoming.header.number]">OPEN</a>
+        <button mat-button (click)="onEdit(incoming)">OPEN</button>
+        <button mat-button (click)="onDelete(incoming)">DELETE</button>
+      </mat-card-actions> 
+  </mat-card>
+</div> -->
+
+<div class="search-div">
+  <button mat-raised-button (click)="onCreate()">
+    <mat-icon class="icon-create">add</mat-icon>Add line
+  </button>
+  <!-- <div class="fields-container"> -->
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <!-- </div> -->
+</div>
+<div class="table-head">
+  <div class="title">{{incomingItem.header.title}} № {{incomingItem.header.number}}</div>
+  <div class="date">{{incomingItem.header.date|date:"medium"}}</div>
+</div>
+<div class="mat-elevation-z8 incoming-table">
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    <!-- Id Column -->
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let row">{{row.number}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="nomenclature">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let row">{{row.nomenclature.name}}</td>
+    </ng-container>
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+      <td mat-cell *matCellDef="let row">{{row.quantity}}</td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+      <td mat-cell *matCellDef="let row">{{row.price}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button color="warn">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="loading">
+        <td mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data...
+        </td>
+      </ng-container> -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <!-- <tr mat-footer-row *matFooterRowDef="['loading']"></tr> -->
+
+  </table>
+
+  <mat-paginator #paginator [length]="this.dataSource?.data.length" [pageIndex]="0" [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 15, 20]">
+  </mat-paginator>
+</div>

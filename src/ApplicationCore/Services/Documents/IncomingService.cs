@@ -17,7 +17,6 @@ namespace StudyingProgect.ApplicationCore.Services.Documents
             _repository = repository;
             _remainNomenclature = remainNomenclature;
             _remainCostPrice = remainCostPrice;
-
         }
 
         public void Write(Incoming incoming)

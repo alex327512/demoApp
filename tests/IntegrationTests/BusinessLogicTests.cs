@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using StudyingProgect.ApplicationCore.Entities.Catalogs;
 using StudyingProgect.ApplicationCore.Entities.Documents;
@@ -9,7 +8,6 @@ using StudyingProgect.ApplicationCore.Services.Documents;
 using StudyingProgect.Infrastucture;
 using StudyingProgect.Infrastucture.RegistersRepositories.Accumulation;
 using Xunit;
-using static StudyingProgect.ApplicationCore.Enums.ExpenseEnum;
 
 namespace StudyingProgect.IntegrationTests
 {

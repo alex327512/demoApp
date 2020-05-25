@@ -1,0 +1,21 @@
+<form class="normal-form">
+  <div class="controles-container">
+    <mat-form-field>
+      <mat-label>Incoming name</mat-label>
+      <input matInput value="{{this.data.title}}" [(ngModel)]="data.title" name="incomingName">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Incoming number</mat-label>
+      <input matInput value="{{this.data.number}}" disabled [(ngModel)]="data.number" name="incomingNumber">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput value="{{this.data.date}}" [(ngModel)]="data.date" disabled name="incomingDate">
+    </mat-form-field>
+  </div>
+
+  <div class="button-row">
+    <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="data">Save</button>
+    <button mat-raised-button color="warn" (click)="onClose()">Cancel</button>
+  </div>
+</form>

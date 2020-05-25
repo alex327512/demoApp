@@ -1,0 +1,26 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="'navigation'" [mode]="'push'" [opened]="false">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a (click)="drawer.toggle()" mat-list-item [routerLink]="['/']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}" [attr.tabindex]="-1">Home</a>
+      <a (click)="drawer.toggle()" mat-list-item [routerLink]="['/incoming']" routerLinkActive="active"
+        [attr.tabindex]="-1">Incoming</a>
+      <a (click)="drawer.toggle()" mat-list-item [routerLink]="['/consumption']" routerLinkActive="active"
+        [attr.tabindex]="-1">Consumption</a>
+      <a (click)="drawer.toggle()" mat-list-item [routerLink]="['/nomenclature']" routerLinkActive="active"
+        [attr.tabindex]="-1">Nomenclature</a>
+      <a (click)="drawer.toggle()" mat-list-item [routerLink]="['/warehouse']" routerLinkActive="active"
+        [attr.tabindex]="-1">Warehouse</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <a class="logo" [routerLink]="['/']">Study Project</a>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

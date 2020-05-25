@@ -1,0 +1,49 @@
+.back-page {
+  position: fixed;
+  bottom: 1%;
+  left: 1%;
+  width: 34px;
+  height: 34px;
+  background-color: #dbdbdb;
+  color: #3f51b5;
+  font-size: 34px;
+  border-radius: 50%;
+  text-align: center;
+  transition: all .2s ease-out;
+
+  &:hover {
+    color: #f44336;
+
+  }
+}
+
+.table-head {
+  width: 80%;
+  margin: 40px auto 0;
+  padding: 10px;
+  box-shadow: 1px -1px 10px 1px rgba(0, 0, 0, 0.14);
+  text-align: center;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.incoming-table {
+  width: 80%;
+  margin: 0 auto 20px;
+}
+
+.mat-focus-indicator {
+  transition: background-color 1s;
+}
+
+.mat-form-field {
+  background-color: #fff;
+  border: 0.5px solid rgba(0, 0, 0, .2);
+}
+
+.icon-create {
+  margin-right: 3px;
+  margin-bottom: 4px;
+}
